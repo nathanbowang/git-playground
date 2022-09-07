@@ -23,7 +23,7 @@ jobs:
 
   check:
     needs: restore
-    if: ${{ needs.restore.outputs.ifDistExist }} == true
+    if: needs.restore.outputs.ifDistExist == true
     runs-on: ubuntu-latest
     steps:
 #      - name: Check if dist folder's cache exist
