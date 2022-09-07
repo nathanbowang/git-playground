@@ -8,7 +8,7 @@ on:
 jobs:
   restore:
     outputs:
-      isDistExist: ${{ steps.isDistExist.outputs.value }}
+      isDistExist: ${{ steps.restore.outputs.cache-hit }}
     runs-on: ubuntu-latest
     steps:
       - name: Restore dist folder from cache
@@ -17,9 +17,6 @@ jobs:
         with:
           path: ./dist/
           key: ${{ github.sha }}
-      - name: Return isDistExist
-        id: isDistExist
-        run: echo "::set-output name=value::${{ steps.restore.outputs.cache-hit }}"
 
   check:
     needs: restore
