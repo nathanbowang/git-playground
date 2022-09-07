@@ -20,7 +20,7 @@ jobs:
 #      - name: Init repo
 #        uses: ./.github/shared/init
       - name: Check format and linter
-        if: ${{ steps.cache.outputs.cache-hit == 'false' }}
+        if: steps.cache.outputs.cache-hit == 'false'
         run: echo "check"
 
 #  test:
