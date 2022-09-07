@@ -18,6 +18,5 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./dist/
-#          key: ${{ github.sha }}
-          key: "a"
+          key: ${{ github.sha }}
       - run: echo "Deploy to test"
