@@ -6,6 +6,10 @@ on:
       - test
 
 jobs:
+  ci:
+    if: true
+    uses: ./.github/workflows/ci.yaml
+
   deploy:
     runs-on: ubuntu-latest
     steps:

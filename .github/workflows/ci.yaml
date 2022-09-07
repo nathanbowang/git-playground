@@ -2,6 +2,7 @@ name: Check code, run tests, and build artifacts
 
 on:
   - pull_request
+  - workflow_call
 
 jobs:
   check:
