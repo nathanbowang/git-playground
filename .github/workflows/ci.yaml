@@ -4,27 +4,29 @@ on:
   - push
 
 jobs:
-
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Init repo
-        uses: ./.github/shared/init
-
-      - name: check
-        run: echo "check code"
+      - uses: ./.github/shared/init
+      - run: echo "check code"
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: check
-        run: echo "test"
+      - uses: actions/checkout@v3
+      - uses: ./.github/shared/init
+      - run: echo "test"
 
   build:
     needs: [check, test]
     runs-on: ubuntu-latest
     steps:
-      - name: check
-        run: echo "build"
+      - uses: actions/checkout@v3
+      - uses: ./.github/shared/init
+      - run: echo "build"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.sha }}-jimmyco-ui
+          path: ./dist/
+          retention-days: 400
