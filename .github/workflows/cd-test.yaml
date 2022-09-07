@@ -6,12 +6,14 @@ on:
       - test
 
 jobs:
-  ci:
-    if: false
-    uses: ./.github/workflows/ci.yaml
+#  checkoutArtifact:
+#    if: false
+#    uses: ./.github/workflows/ci.yaml
 
   deploy:
-    needs: ci
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploy"
+      - uses: actions/download-artifact@v3
+        with:
+          name: 46926ec6ff6ca1e48f0f7d233e55bad9c407c57f-jimmyco-ui-artifact
+      - run: ls -al
