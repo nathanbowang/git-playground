@@ -7,10 +7,11 @@ on:
 
 jobs:
   ci:
-    if: true
+    if: false
     uses: ./.github/workflows/ci.yaml
 
   deploy:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploy"
