@@ -1,7 +1,9 @@
 name: Init repo
+description: "Init repo"
 
 runs:
   using: "composite"
   steps:
-    - name: Git checkout
-      run: echo "checkout"
+    - name: Init
+      shell: bash
+      run: echo "init"
