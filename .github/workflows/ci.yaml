@@ -1,15 +1,23 @@
 name: Check code, run tests, and build artifacts
 
 on:
-  - pull_request
+  - push
+#  - pull_request
+#  - workflow_call
 
 jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/shared/restore
+
   check:
+    needs: restore
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/shared/init
-      - run: echo "check code"
+        run: echo ${{needs.restore.outputs.cache-hit}}
 
   test:
     runs-on: ubuntu-latest
