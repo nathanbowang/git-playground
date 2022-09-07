@@ -9,29 +9,29 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check dist folder existence
-        id: check-existence
+      - name: Check if dist folder's cache exist
+        id: cache
         uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Init repo
-        uses: ./.github/shared/init
-      - run: echo ${{steps.check-existence.outputs.cache-hit}}
+#      - name: Checkout repo
+#        uses: actions/checkout@v3
+#      - name: Init repo
+#        uses: ./.github/shared/init
+      - run: echo ${{ steps.cache.outputs.cache-hit }}
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/shared/init
-      - run: echo "test"
-
-  build:
-    needs: [check, test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/shared/init
-      - run: echo "build"
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: ./.github/shared/init
+#      - run: echo "test"
+#
+#  build:
+#    needs: [check, test]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: ./.github/shared/init
+#      - run: echo "build"
