@@ -6,25 +6,20 @@ on:
 #  - workflow_call
 
 jobs:
-  restore:
-    outputs:
-      isDistExist: ${{ steps.restore.outputs.cache-hit }}
+  check:
     runs-on: ubuntu-latest
     steps:
-      - name: Restore dist folder from cache
-        id: restore
+      - name: Check dist folder existence
+        id: check-existence
         uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
-
-  check:
-    needs: restore
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/shared/init
-      - run: echo ${{needs.restore.outputs.isDistExist}}
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo ${{steps.restore.outputs.cache-hit}}
 
   test:
     runs-on: ubuntu-latest
