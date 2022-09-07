@@ -27,7 +27,7 @@ jobs:
       - uses: ./.github/shared/init
       - run: echo "build"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/cache@v3
         with:
-          name: ${{ github.sha }}-jimmyco-ui-artifact
           path: ./dist/
+          key: ${{ github.sha }}-jimmyco-ui-artifact

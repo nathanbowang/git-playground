@@ -6,14 +6,21 @@ on:
       - test
 
 jobs:
-#  checkoutArtifact:
-#    if: false
+#  ci:
+#    uses: dawidd6/action-download-artifact@v2
 #    uses: ./.github/workflows/ci.yaml
 
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/cache@v3
+        id: restore-artifact-cache
         with:
-          name: 46926ec6ff6ca1e48f0f7d233e55bad9c407c57f-jimmyco-ui-artifact
-      - run: ls -al
+          path: ./dist/
+          key: ${{ github.sha }}-jimmyco-ui-artifact
+
+      - name: Install missing dependencies
+        if: steps.restore-artifact-cache.outputs.cache-hit != 'true'
+        uses: ./.github/workflows/ci.yaml
+
+      - run: echo "Deploy"
