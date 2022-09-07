@@ -9,7 +9,7 @@ jobs:
   restore:
     runs-on: ubuntu-latest
     outputs:
-      ifDistExist: steps.cache.outputs.cache-hit
+      ifDistExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: Check if dist folder's cache exist
         id: cache
@@ -23,7 +23,7 @@ jobs:
 #      - name: Init repo
 #        if: steps.cache.outputs.cache-hit != 'true'
 #        uses: ./.github/shared/init
-      - name: Check format and linter
+      - name: Echo cache-hit
         if: steps.cache.outputs.cache-hit == 'true'
         run: echo "true"
 
