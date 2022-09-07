@@ -6,51 +6,47 @@ on:
 #  - workflow_call
 
 jobs:
-  restore:
+  distCache:
     runs-on: ubuntu-latest
     outputs:
-      ifDistExist: ${{ steps.cache.outputs.cache-hit }}
+      isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: Check if dist folder's cache exist
         id: cache
         uses: actions/cache@v3
         with:
           path: ./dist/
-#          key: ${{ github.sha }}
-          key: "a"
-      - name: Echo cache-hit
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: echo "true"
+          key: ${{ github.sha }}
 
   check:
-    needs: restore
-    if: needs.restore.outputs.ifDistExist == 'true'
+    needs: distCache
+    if: needs.distCache.outputs.isExist != 'true'
     runs-on: ubuntu-latest
     steps:
-#      - name: Check if dist folder's cache exist
-#        id: cache
-#        uses: actions/cache@v3
-#        with:
-#          path: ./dist/
-#          key: ${{ github.sha }}
-#      - name: Checkout repo
-#        uses: actions/checkout@v3
-#      - name: Init repo
-#        uses: ./.github/shared/init
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
       - name: Check format and linter
-        run: echo ${{needs.restore.outputs.ifDistExist}}
+        run: echo ${{needs.distCache.outputs.isExist}}
 
-#  test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: ./.github/shared/init
-#      - run: echo "test"
-#
-#  build:
-#    needs: [check, test]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: ./.github/shared/init
-#      - run: echo "build"
+  test:
+    needs: distCache
+    if: needs.distCache.outputs.isExist != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo "test"
+
+  build:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo "build"
