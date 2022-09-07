@@ -1,9 +1,8 @@
 name: Check code, run tests, and build artifacts
 
 on:
-  - push
-#  - pull_request
-#  - workflow_call
+  - pull_request
+  - workflow_call
 
 jobs:
   distCache:
@@ -16,8 +15,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./dist/
-#          key: ${{ github.sha }}
-          key: "a"
+          key: ${{ github.sha }}
 
   check:
     needs: distCache

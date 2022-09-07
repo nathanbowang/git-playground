@@ -1,0 +1,22 @@
+name: Deploy to the Test environment
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore dist folder's cache
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./dist/
+          key: ${{ github.sha }}
+      - run: echo "Deploy to test"
