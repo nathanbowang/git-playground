@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Init repo
-        uses: ./init
+        uses: ./shared/init
 
       - name: check
         run: echo "check code"
