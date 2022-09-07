@@ -1,10 +1,10 @@
 name: Restore dist folder cache
 description: "Restore dist folder cache"
 
-#outputs:
-#  isDistExist:
-#    description: "If this var is true, the commit has been built."
-#    value: ${{ steps.isDistExist.outputs.isDistExist }}
+outputs:
+  isDistExist:
+    description: "If this var is true, the commit has been built."
+    value: ${{ steps.isDistExist.outputs.value }}
 
 runs:
   using: "composite"
@@ -15,6 +15,6 @@ runs:
         path: ./dist/
         key: ${{ github.sha }}
 
-#    - shell: bash
-#      id: isDistExist
-#      run: echo "::set-output name=isDistExist::hello"
+    - shell: bash
+      id: isDistExist
+      run: echo "::set-output name=value::true"
