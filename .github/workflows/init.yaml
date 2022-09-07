@@ -1,0 +1,7 @@
+name: Init repo
+
+runs:
+  using: "composite"
+  steps:
+    - name: Git checkout
+      run: echo "checkout"
