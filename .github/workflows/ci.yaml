@@ -23,9 +23,9 @@ jobs:
 #      - name: Init repo
 #        if: steps.cache.outputs.cache-hit != 'true'
 #        uses: ./.github/shared/init
-#      - name: Check format and linter
-#        if: steps.cache.outputs.cache-hit != 'true'
-#        run: echo "check"
+      - name: Check format and linter
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: echo "true"
 
   check:
     needs: restore
@@ -44,8 +44,8 @@ jobs:
 #        if: steps.cache.outputs.cache-hit != 'true'
 #        uses: ./.github/shared/init
       - name: Check format and linter
-        if: needs.restore.outputs.ifDistExist != 'true'
-        run: echo "check"
+#        if: needs.restore.outputs.ifDistExist != 'true'
+        run: echo ${{needs.restore.outputs.ifDistExist}}
 
 #  test:
 #    runs-on: ubuntu-latest
