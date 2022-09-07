@@ -1,7 +1,7 @@
 name: Check code, run tests, and build artifacts
 
 on:
-  - push
+  - pull_request
 
 jobs:
   check:
@@ -25,8 +25,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/shared/init
       - run: echo "build"
+
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.sha }}-jimmyco-ui
+          name: ${{ github.sha }}-jimmyco-ui-artifact
           path: ./dist/
-          retention-days: 400

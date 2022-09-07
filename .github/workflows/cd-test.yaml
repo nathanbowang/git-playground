@@ -1,0 +1,12 @@
+name: Deploy to the test environment
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy"
