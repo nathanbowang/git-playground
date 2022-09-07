@@ -31,12 +31,12 @@ jobs:
     needs: restore
     runs-on: ubuntu-latest
     steps:
-      - name: Check if dist folder's cache exist
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: ./dist/
-          key: ${{ github.sha }}
+#      - name: Check if dist folder's cache exist
+#        id: cache
+#        uses: actions/cache@v3
+#        with:
+#          path: ./dist/
+#          key: ${{ github.sha }}
 #      - name: Checkout repo
 #        if: steps.cache.outputs.cache-hit != 'true'
 #        uses: actions/checkout@v3
