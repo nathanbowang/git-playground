@@ -1,58 +1,51 @@
-name: Check code, run tests, and build artifacts
+name: Build artifact
 
 on:
   - pull_request
   - workflow_call
 
 jobs:
-  distCache:
+  check-artifact-existence:
     runs-on: ubuntu-latest
     outputs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
-      - name: Check if dist folder's cache exist
+      - name: Check if an artifact of this version exist
         id: cache
         uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
 
-  check:
-    needs: distCache
-    if: needs.distCache.outputs.isExist != 'true'
+  check-source-code:
+    needs: check-artifact-existence
+    if: needs.check-artifact-existence.outputs.isExist != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
-        uses: ./.github/shared/init
+        run: echo "init"
       - name: Check format and linter
         run: echo "check"
 
   test:
-    needs: distCache
-    if: needs.distCache.outputs.isExist != 'true'
+    needs: check-artifact-existence
+    if: needs.check-artifact-existence.outputs.isExist != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
-        uses: ./.github/shared/init
+        run: echo "init"
       - run: echo "test"
 
-  build:
+  build-artifact:
     needs: [check, test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
-        uses: ./.github/shared/init
-      - uses: actions/cache@v3
-        with:
-          path: ./dist/
-          key: ${{ github.sha }}
-      - run: |
-          echo "build"
-          mkdir dist
-          touch dist/a
+        run: echo "init"
+      - run: echo "build and upload to the artifactory"

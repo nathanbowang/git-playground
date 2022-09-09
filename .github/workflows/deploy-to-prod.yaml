@@ -6,15 +6,17 @@ on:
       - main
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Restore dist folder's cache
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: ./dist/
-          key: ${{ github.sha }}
-      - run: echo "Deploy to prod"
-        # TODO: if not exist, throw error
+      - run: echo "Point the Prod environment's URL to the artifact"
 
+  invalidate-cdn-cache:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Invalidate CDN cache"
