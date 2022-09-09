@@ -4,7 +4,7 @@ description: "Init repo"
 runs:
   using: "composite"
   steps:
-    - name: Cache node modules
+    - name: Restore node modules cache
       shell: bash
       run: echo "init"
     - name: Install missing dependencies

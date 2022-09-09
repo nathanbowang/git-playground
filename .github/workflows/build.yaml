@@ -1,0 +1,58 @@
+name: Check code, run tests, and build artifacts
+
+on:
+  - pull_request
+  - workflow_call
+
+jobs:
+  distCache:
+    runs-on: ubuntu-latest
+    outputs:
+      isExist: ${{ steps.cache.outputs.cache-hit }}
+    steps:
+      - name: Check if dist folder's cache exist
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./dist/
+          key: ${{ github.sha }}
+
+  check:
+    needs: distCache
+    if: needs.distCache.outputs.isExist != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - name: Check format and linter
+        run: echo "check"
+
+  test:
+    needs: distCache
+    if: needs.distCache.outputs.isExist != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo "test"
+
+  build:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - uses: actions/cache@v3
+        with:
+          path: ./dist/
+          key: ${{ github.sha }}
+      - run: |
+          echo "build"
+          mkdir dist
+          touch dist/a
