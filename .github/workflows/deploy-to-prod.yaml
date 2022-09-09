@@ -16,7 +16,7 @@ jobs:
       - run: echo "Point the Prod environment's URL to the artifact"
 
   invalidate-cdn-cache:
-    needs: build
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - run: echo "Invalidate CDN cache"

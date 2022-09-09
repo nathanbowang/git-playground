@@ -41,7 +41,7 @@ jobs:
       - run: echo "test"
 
   build-artifact:
-    needs: [check, test]
+    needs: [check-source-code, test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
