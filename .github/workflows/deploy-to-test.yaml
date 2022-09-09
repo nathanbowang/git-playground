@@ -1,4 +1,4 @@
-name: Deploy to the Test environment
+name: Deploy to Test
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   build:
     uses: ./.github/workflows/build.yaml
 
-  deploy:
+  deploy-to-test:
     needs: build
     runs-on: ubuntu-latest
     steps:

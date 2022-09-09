@@ -1,4 +1,4 @@
-name: Deploy to the Production environment
+name: Deploy to Production
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   build:
     uses: ./.github/workflows/build.yaml
 
-  deploy:
+  deploy-to-prod:
     needs: build
     runs-on: ubuntu-latest
     steps:
