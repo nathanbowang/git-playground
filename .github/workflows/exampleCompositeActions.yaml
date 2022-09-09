@@ -1,0 +1,51 @@
+name: Build artifact
+
+on:
+  - pull_request
+  - workflow_call
+
+jobs:
+  check-artifact-existence:
+    runs-on: ubuntu-latest
+    outputs:
+      isExist: ${{ steps.cache.outputs.cache-hit }}
+    steps:
+      - name: Check if an artifact of this version exist
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ./dist/
+          key: ${{ github.sha }}
+
+  check-source-code:
+    needs: check-artifact-existence
+    if: needs.check-artifact-existence.outputs.isExist != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - name: Check format and linter
+        run: echo "check"
+
+  test:
+    needs: check-artifact-existence
+    if: needs.check-artifact-existence.outputs.isExist != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo "test"
+
+  build-artifact:
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Init repo
+        uses: ./.github/shared/init
+      - run: echo "build and upload to the artifactory"
