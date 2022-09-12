@@ -16,7 +16,7 @@ resource "aws_s3_bucket_policy" "allow_public_read" {
 
 data "aws_iam_policy_document" "allow_public_read" {
   statement {
-    sid = "AllowPublicRead"
+    effect = "Allow"
 
     principals {
       type        = "*"
