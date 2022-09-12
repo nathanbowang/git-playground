@@ -1,5 +1,5 @@
 name: Build artifact
-
+# TODO: use input as variables
 permissions:
   id-token: write
   contents: read
