@@ -29,6 +29,6 @@ data "aws_iam_policy_document" "github_actions" {
 }
 
 resource "aws_iam_role" "github_actions" {
-  name = "github-actions-role"
+  name = "GitHubActionsRole"
   assume_role_policy = data.aws_iam_policy_document.github_actions.json
 }

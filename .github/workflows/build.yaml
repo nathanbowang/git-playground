@@ -1,5 +1,9 @@
 name: Build artifact
 
+permissions:
+  id-token: write
+  contents: read
+
 on:
   - pull_request
   - workflow_call
@@ -53,7 +57,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::052859230833:role/github-actions-role
+          role-to-assume: arn:aws:iam::052859230833:role/GitHubActionsRole
           aws-region: ap-southeast-2
       - name: Upload the dist folder
         run: aws s3 sync --delete ./dist s3://nathanwang.link-web-artifactory/${{ github.sha }}
