@@ -47,5 +47,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
-        run: echo "init"
-      - run: echo "build and upload to the artifactory"
+        run: echo "init repo"
+      - name: Build artifact
+        run: echo "build artifact"
+      - name: Upload artifact
+        run: aws s3 sync --delete ./dist s3://nathanwang.link-ui-artifactory/${{ github.sha }}
+
