@@ -5,16 +5,8 @@ resource "aws_s3_bucket" "web_root_test" {
 
 resource "aws_s3_bucket_website_configuration" "this" {
   bucket = aws_s3_bucket.web_root_test.bucket
-
-  //noinspection HCLUnknownBlockType
-  index_document {
-    suffix = "index.html"
-  }
-
-  //noinspection HCLUnknownBlockType
-  error_document {
-    key = "error.html"
-  }
+  index_document { suffix = "index.html" }
+  error_document { key = "error.html" }
 }
 
 resource "aws_s3_bucket_policy" "allow_public_read" {
@@ -31,9 +23,7 @@ data "aws_iam_policy_document" "allow_public_read" {
       identifiers = ["*"]
     }
 
-    actions = [
-      "s3:GetObject",
-    ]
+    actions = ["s3:GetObject",]
 
     resources = [
       aws_s3_bucket.web_root_test.arn,
@@ -43,15 +33,15 @@ data "aws_iam_policy_document" "allow_public_read" {
 }
 
 resource "aws_s3_object" "mock_index_page" {
-  bucket = aws_s3_bucket.web_root_test.bucket
-  key    = "index.html"
-  content = "<h1>Hello, world</h1>"
+  bucket       = aws_s3_bucket.web_root_test.bucket
+  key          = "index.html"
+  content      = "<h1>Hello, world</h1>"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "mock_error_page" {
-  bucket = aws_s3_bucket.web_root_test.bucket
-  key    = "error.html"
-  content = "<h1>Error</h1>"
+  bucket       = aws_s3_bucket.web_root_test.bucket
+  key          = "error.html"
+  content      = "<h1>Error</h1>"
   content_type = "text/html"
 }
