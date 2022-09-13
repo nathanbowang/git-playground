@@ -1,17 +1,5 @@
 name: Deploy to Test
 
-env:
-  # These env variables should match the values in the .infrastructure/terraform.tfvars
-  DOMAIN_NAME: "nathanwang.link"
-  GITHUB_REPO_NAME: "git-playground"
-  REGION: "ap-southeast-2"
-  # These env variables are for GH actions only
-  AWS_ACCOUNT_ID: "052859230833"
-
-permissions:
-  id-token: write
-  contents: read
-
 on:
   push:
     branches:
@@ -23,15 +11,6 @@ jobs:
 
   deploy-to-test:
     needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
-          aws-region: ${{ env.REGION }}
-      - name: Copy the artifact to the web root
-        run: |
-          aws s3 sync --delete \
-          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-artifactory/${{ github.sha }} \
-          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-web-root-test
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      env: test

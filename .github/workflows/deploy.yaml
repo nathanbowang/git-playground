@@ -1,9 +1,11 @@
-name: Deploy to Prod
+name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
 
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars
@@ -18,11 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yaml
-
-  deploy-to-prod:
-    needs: build
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
@@ -34,11 +32,4 @@ jobs:
         run: |
           aws s3 sync --delete \
           s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-artifactory/${{ github.sha }} \
-          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-web-root-prod
-
-  invalidate-cdn-cache:
-    needs: deploy-to-prod
-    runs-on: ubuntu-latest
-    steps:
-      # TODO
-      - run: echo "Invalidate CDN cache"
+          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-web-root-${{ inputs.env }}
