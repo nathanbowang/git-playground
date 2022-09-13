@@ -1,5 +1,9 @@
 name: Build artifact
 
+on:
+  - pull_request
+  - workflow_call
+
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars
   DOMAIN_NAME: "nathanwang.link"
@@ -12,16 +16,13 @@ permissions:
   id-token: write
   contents: read
 
-on:
-  - pull_request
-  - workflow_call
-
 jobs:
   check-artifact-existence:
     runs-on: ubuntu-latest
     outputs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
+      # TODO
       - name: Check if an artifact of this version exist
         id: cache
         uses: actions/cache@v3
@@ -34,6 +35,7 @@ jobs:
     if: needs.check-artifact-existence.outputs.isExist != 'true'
     runs-on: ubuntu-latest
     steps:
+      # TODO
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
@@ -46,6 +48,7 @@ jobs:
     if: needs.check-artifact-existence.outputs.isExist != 'true'
     runs-on: ubuntu-latest
     steps:
+      # TODO
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo
@@ -56,6 +59,7 @@ jobs:
     needs: [check-source-code, test]
     runs-on: ubuntu-latest
     steps:
+      # TODO
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Init repo

@@ -1,4 +1,16 @@
-name: Deploy to Production
+name: Deploy to Prod
+
+env:
+  # These env variables should match the values in the .infrastructure/terraform.tfvars
+  DOMAIN_NAME: "nathanwang.link"
+  GITHUB_REPO_NAME: "git-playground"
+  REGION: "ap-southeast-2"
+  # These env variables are for GH actions only
+  AWS_ACCOUNT_ID: "052859230833"
+
+permissions:
+  id-token: write
+  contents: read
 
 on:
   push:
@@ -13,10 +25,20 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Point the Prod environment's URL to the artifact"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
+          aws-region: ${{ env.REGION }}
+      - name: Copy the artifact to the web root
+        run: |
+          aws s3 sync --delete \
+          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-artifactory/${{ github.sha }} \
+          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-web-root-prod
 
   invalidate-cdn-cache:
-    needs: deploy
+    needs: deploy-to-prod
     runs-on: ubuntu-latest
     steps:
+      # TODO
       - run: echo "Invalidate CDN cache"
