@@ -5,7 +5,7 @@ env:
   DOMAIN_NAME: "nathanwang.link"
   GITHUB_REPO_NAME: "git-playground"
   REGION: "ap-southeast-2"
-  # These env variables are GH only
+  # These env variables are for GH actions only
   AWS_ACCOUNT_ID: "052859230833"
 
 permissions:
@@ -62,7 +62,7 @@ jobs:
         run: echo "init repo"
       - name: Build a dist folder
         run: echo "build a dist folder"
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
