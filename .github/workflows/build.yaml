@@ -1,5 +1,13 @@
 name: Build artifact
-# TODO: use input as variables
+
+env:
+  # These env variables should match the values in the .infrastructure/terraform.tfvars
+  DOMAIN_NAME: "nathanwang.link"
+  GITHUB_REPO_NAME: "git-playground"
+  REGION: "ap-southeast-2"
+  # These env variables are GH only
+  AWS_ACCOUNT_ID: "052859230833"
+
 permissions:
   id-token: write
   contents: read
@@ -57,7 +65,10 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::052859230833:role/GitHubActionsRole
-          aws-region: ap-southeast-2
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
+          aws-region: ${{ env.REGION }}
       - name: Upload the dist folder
-        run: aws s3 sync --delete ./dist s3://nathanwang.link-web-artifactory/${{ github.sha }}
+        run: |
+          aws s3 sync --delete \
+          ./dist \
+          s3://${{ env.DOMAIN_NAME }}-${{ env.GITHUB_REPO_NAME }}-artifactory/${{ github.sha }}

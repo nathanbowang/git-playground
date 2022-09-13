@@ -1,9 +1,9 @@
-domain_name  = "nathanwang.link"
-project_name = "web"
-region       = "ap-southeast-2"
-github_workspace_name = "natebowang"
-github_repo_name = "git-playground"
+# This should match the values in the GitHub actions workflows
+DOMAIN_NAME  = "nathanwang.link"
+GITHUB_WORKSPACE_NAME = "natebowang"
+GITHUB_REPO_NAME = "git-playground"
+REGION       = "ap-southeast-2"
 
-common_tags = {
+COMMON_TAGS = {
   Project = "nathanwang.link-ui"
 }

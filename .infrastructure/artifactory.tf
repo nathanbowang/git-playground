@@ -1,4 +1,4 @@
 resource "aws_s3_bucket" "artifactory" {
-  bucket        = "${var.domain_name}-${var.project_name}-artifactory"
+  bucket        = "${var.DOMAIN_NAME}-${var.GITHUB_REPO_NAME}-artifactory"
   force_destroy = true
 }

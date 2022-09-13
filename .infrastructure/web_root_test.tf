@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "web_root_test" {
-  bucket        = "${var.domain_name}-${var.project_name}-web-root-test"
+  bucket        = "${var.DOMAIN_NAME}-${var.GITHUB_REPO_NAME}-web-root-test"
   force_destroy = true
 }
 
