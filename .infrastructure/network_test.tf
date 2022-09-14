@@ -15,6 +15,7 @@ resource "aws_route53_record" "test" {
   }
 }
 
+# TODO: HTTPS
 resource "aws_acm_certificate" "test" {
   domain_name       = "test.${var.DOMAIN_NAME}"
   validation_method = "DNS"

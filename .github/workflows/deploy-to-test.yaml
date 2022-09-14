@@ -5,10 +5,6 @@ on:
     branches:
       - test
 
-env:
-  # These env variables should match the values in the .infrastructure/terraform.tfvars
-  DOMAIN_NAME: "nathanwang.link"
-
 jobs:
   build:
     uses: ./.github/workflows/build.yaml
