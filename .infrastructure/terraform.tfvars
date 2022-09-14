@@ -1,4 +1,5 @@
 # This should match the values in the GitHub actions workflows
+ARTIFACTORY_NAME  = "nathanwang.link-ui-artifactory"
 DOMAIN_NAME  = "nathanwang.link"
 GITHUB_WORKSPACE_NAME = "natebowang"
 GITHUB_REPO_NAME = "git-playground"

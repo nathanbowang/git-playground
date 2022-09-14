@@ -5,9 +5,9 @@ on:
     branches:
       - main
 
-#env:
-#  # These env variables should match the values in the .infrastructure/terraform.tfvars
-#  DOMAIN_NAME: "nathanwang.link"
+env:
+  # These env variables should match the values in the .infrastructure/terraform.tfvars
+  DOMAIN_NAME: "nathanwang.link"
 #  GITHUB_REPO_NAME: "git-playground"
 #  REGION: "ap-southeast-2"
 #  # These env variables are for GH actions only
@@ -25,7 +25,7 @@ jobs:
     needs: build
     uses: ./.github/workflows/deploy.yaml
     with:
-      env: prod
+      subdomain: ${{ env.DOMAIN_NAME }}
 
   invalidate-cdn-cache:
     needs: deploy-to-prod

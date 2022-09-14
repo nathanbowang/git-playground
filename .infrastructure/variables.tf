@@ -1,3 +1,8 @@
+variable "ARTIFACTORY_NAME" {
+  type        = string
+  description = "The artifactory name for the website."
+}
+
 variable "DOMAIN_NAME" {
   type        = string
   description = "The domain name for the website."
