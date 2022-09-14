@@ -17,7 +17,7 @@ resource "aws_route53_record" "test" {
 
 # TODO: HTTPS
 resource "aws_acm_certificate" "test" {
-  domain_name       = "test.${var.DOMAIN_NAME}"
+  domain_name       = aws_route53_record.test.name
   validation_method = "DNS"
 
   lifecycle {
