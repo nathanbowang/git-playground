@@ -79,3 +79,4 @@ jobs:
           s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }}
       # TODO: remove .html extension name
       - name: Upload HTML files
+        run: echo "Upload HTML files"
