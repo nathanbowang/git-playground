@@ -17,4 +17,4 @@ jobs:
     needs: build
     uses: ./.github/workflows/deploy.yaml
     with:
-      subdomain: ${{ env.DOMAIN_NAME }}
+      subdomain: "test.nathanwang.link"
