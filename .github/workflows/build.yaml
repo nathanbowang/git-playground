@@ -72,11 +72,11 @@ jobs:
           aws-region: ${{ env.REGION }}
       # TODO: ignore error.html
       # TODO: exclude html files
-      - name: Upload the dist folder
+      - name: Publish the dist folder
         run: |
           aws s3 sync --delete \
           ./dist \
           s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }}
       # TODO: remove .html extension name
-      - name: Upload HTML files
+      - name: Publish HTML files
         run: echo "Upload HTML files"
