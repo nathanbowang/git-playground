@@ -3,38 +3,33 @@ resource "aws_s3_bucket" "web_root_test" {
   force_destroy = false
 }
 
-resource "aws_s3_bucket_acl" "b_acl" {
+resource "aws_s3_bucket_policy" "allow_cdn_read" {
   bucket = aws_s3_bucket.web_root_test.id
-  acl    = "private"
+  policy = data.aws_iam_policy_document.allow_cdn_read.json
 }
-#resource "aws_s3_bucket_website_configuration" "this" {
-#  bucket = aws_s3_bucket.web_root_test.bucket
-#  index_document { suffix = "index.html" }
-#  error_document { key = "error.html" }
-#}
-#
-#resource "aws_s3_bucket_policy" "allow_public_read" {
-#  bucket = aws_s3_bucket.web_root_test.id
-#  policy = data.aws_iam_policy_document.allow_public_read.json
-#}
-#
-#data "aws_iam_policy_document" "allow_public_read" {
-#  statement {
-#    effect = "Allow"
-#
-#    principals {
-#      type        = "*"
-#      identifiers = ["*"]
-#    }
-#
-#    actions = ["s3:GetObject",]
-#
-#    resources = [
-#      aws_s3_bucket.web_root_test.arn,
-#      "${aws_s3_bucket.web_root_test.arn}/*",
-#    ]
-#  }
-#}
+
+data "aws_iam_policy_document" "allow_cdn_read" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions = ["s3:GetObject",]
+
+    resources = [
+      "${aws_s3_bucket.web_root_test.arn}/*",
+    ]
+
+    condition {
+      test     = "StringEquals"
+      values   = [aws_cloudfront_distribution.this_environment.arn]
+      variable = "AWS:SourceArn"
+    }
+  }
+}
 
 resource "aws_s3_object" "mock_index_page" {
   bucket       = aws_s3_bucket.web_root_test.bucket
