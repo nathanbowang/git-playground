@@ -32,3 +32,10 @@ jobs:
           aws s3 sync --delete \
           s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }} \
           s3://${{ inputs.subdomain }}
+
+  invalidate-cdn-cache:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      # TODO
+      - run: echo "Invalidate CDN cache"

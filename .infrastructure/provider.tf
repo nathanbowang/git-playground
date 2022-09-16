@@ -15,3 +15,7 @@ provider "aws" {
   region = var.REGION
 }
 
+provider "aws" {
+  alias = "virginia"
+  region = "us-east-1"
+}

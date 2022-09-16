@@ -5,10 +5,6 @@ on:
     branches:
       - main
 
-#permissions:
-#  id-token: write
-#  contents: read
-
 jobs:
   build:
     uses: ./.github/workflows/build.yaml
@@ -18,10 +14,3 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     with:
       subdomain: "nathanwang.link"
-
-  invalidate-cdn-cache:
-    needs: deploy-to-prod
-    runs-on: ubuntu-latest
-    steps:
-      # TODO
-      - run: echo "Invalidate CDN cache"
