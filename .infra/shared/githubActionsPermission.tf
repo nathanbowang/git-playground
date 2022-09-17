@@ -1,21 +1,4 @@
-terraform {
-  required_version = ">= 1.2.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-
-  # TODO: s3 state
-}
-
-provider "aws" {
-  region = var.AWS_DEFAULT_REGION
-}
-
-resource "aws_iam_openid_connect_provider" "auth_server" {
+resource "aws_iam_openid_connect_provider" "github" {
   url             = "https://token.actions.githubusercontent.com"
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
@@ -36,7 +19,7 @@ data "aws_iam_policy_document" "github_actions" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.auth_server.arn]
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
     }
 
     condition {

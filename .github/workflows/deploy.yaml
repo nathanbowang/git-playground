@@ -12,6 +12,7 @@ on:
 
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars.
+  # These env variables should match the values in the .infrastructure/shared/terraform.tfvars.
   ARTIFACTORY_BUCKET_NAME: "nathanwang.link-artifactory"
   AWS_DEFAULT_REGION: "ap-southeast-2"
   # These env variables should match AWS resources.
@@ -32,7 +33,7 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: Copy the artifact to the web root
         run: |
-          aws s3 sync --delete \
+          aws s3 sync --delete --metadata {"a":"a"} \
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
 
