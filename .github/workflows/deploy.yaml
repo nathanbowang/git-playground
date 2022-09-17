@@ -36,13 +36,15 @@ jobs:
           aws s3 sync --delete \
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
+          echo '{'\
+              "\"artifact-git-commit-hash\":\"${{ github.sha }}\","\
+              "\"artifact-updated-by\":\"${{ github.actor }}\","\
+              "\"artifact-last-updated-time\":\"$(date -u --rfc-3339=seconds)\""\
+            '}' \
+            > tagging.json
           aws resourcegroupstaggingapi tag-resources \
             --resource-arn-list arn:aws:s3:::test.nathanwang.link-web-root \
-            --tags '{'\
-                "\"artifact-git-commit-hash\":\"${{ github.sha }}\","\
-                "\"artifact-updated-by\":\"${{ github.actor }}\","\
-                "\"artifact-last-updated-time\":\"$(date -u --rfc-3339=seconds)\""\
-              '}'
+            --tags file://tagging.json
 
   invalidate-cdn-cache:
     needs: deploy
