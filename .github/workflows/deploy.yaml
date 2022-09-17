@@ -37,7 +37,7 @@ jobs:
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
           aws s3 put-bucket-tagging \
-            --bucket s3://${{ env.ARTIFACTORY_BUCKET_NAME }} \
+            --bucket s3://${{ inputs.firstSubdomainName }}-web-root \
             --tagging 'TagSet=[{"artifact-git-commit-hash"="123"}]'
 
   invalidate-cdn-cache:
