@@ -13,7 +13,7 @@ on:
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars.
   ARTIFACTORY_NAME: "nathanwang.link-ui-artifactory"
-  REGION: "ap-southeast-2"
+  AWS_DEFAULT_REGION: "ap-southeast-2"
   # These env variables should match AWS resources.
   AWS_ACCOUNT_ID: "052859230833"
 
@@ -29,7 +29,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
-          aws-region: ${{ env.REGION }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: Copy the artifact to the web root
         run: |
           aws s3 sync --delete \
@@ -40,8 +40,13 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      # TODO
-      - run: |
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Invalidate CDN cache
+        run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ inputs.distributionId }} \
             --paths "/*"

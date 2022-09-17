@@ -1,6 +1,6 @@
 variable "ENV" {
   type        = string
-  description = "Input the environment of the infrastructure. E.g., test or prod."
+  description = "Input the environment of the infrastructure: [test/prod]"
 }
 
 variable "AWS_DEFAULT_REGION" {

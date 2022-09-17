@@ -5,10 +5,10 @@ on:
   - workflow_call
 
 env:
-  # These env variables should match the values in the .infrastructure/terraform.tfvars
+  # These env variables should match the values in the .infrastructure/terraform.tfvars.
   ARTIFACTORY_NAME: "nathanwang.link-ui-artifactory"
-  REGION: "ap-southeast-2"
-  # These env variables are for GH actions only
+  AWS_DEFAULT_REGION: "ap-southeast-2"
+  # These env variables should match AWS resources.
   AWS_ACCOUNT_ID: "052859230833"
 
 permissions:
@@ -69,7 +69,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
-          aws-region: ${{ env.REGION }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
       # TODO: ignore error.html
       # TODO: exclude html files
       - name: Publish the dist folder

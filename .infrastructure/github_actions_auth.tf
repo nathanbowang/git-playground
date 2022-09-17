@@ -7,7 +7,10 @@ resource "aws_iam_openid_connect_provider" "auth_server" {
 resource "aws_iam_role" "github_actions" {
   name = "GitHubActionsRole"
   assume_role_policy = data.aws_iam_policy_document.github_actions.json
-  managed_policy_arns = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+    "arn:aws:iam::aws:policy/CloudFrontFullAccess",
+  ]
 }
 
 data "aws_iam_policy_document" "github_actions" {
