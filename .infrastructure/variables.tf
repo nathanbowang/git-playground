@@ -27,9 +27,25 @@ variable "SUBDOMAIN_NAMES" {
     EOT
 }
 
-variable "ARTIFACTORY_NAME" {
+variable "ARTIFACTORY_BUCKET_NAME" {
   type        = string
   description = "E.g., abc-ui-artifactory or abc-identity-microservice-artifactory. "
+}
+
+variable "LOGS_BUCKET_NAME" {
+  type        = string
+  description = "E.g., logs. "
+}
+
+variable "LOGS_PREFIX" {
+  type        = map(string)
+  description = <<EOT
+      E.g.:
+      {
+        test: "nathanwang.link-ui-test/",
+        prod: "nathanwang.link-ui-prod/",
+      }
+    EOT
 }
 
 variable "GITHUB_ACCOUNT_NAME" {

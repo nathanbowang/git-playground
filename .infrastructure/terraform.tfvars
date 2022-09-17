@@ -1,5 +1,10 @@
 # This should match the values in the GitHub actions workflows
-ARTIFACTORY_NAME = "nathanwang.link-ui-artifactory"
+ARTIFACTORY_BUCKET_NAME = "nathanwang.link-ui-artifactory"
+LOGS_BUCKET_NAME = "nathanwang.link-logs"
+LOGS_PREFIX = {
+  test: "nathanwang.link-ui-test/",
+  prod: "nathanwang.link-ui-prod/",
+}
 ROOT_DOMAIN_NAME = "nathanwang.link"
 SUBDOMAIN_NAMES     = {
   test : ["test.nathanwang.link"],

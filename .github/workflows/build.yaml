@@ -6,7 +6,7 @@ on:
 
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars.
-  ARTIFACTORY_NAME: "nathanwang.link-ui-artifactory"
+  ARTIFACTORY_BUCKET_NAME: "nathanwang.link-ui-artifactory"
   AWS_DEFAULT_REGION: "ap-southeast-2"
   # These env variables should match AWS resources.
   AWS_ACCOUNT_ID: "052859230833"
@@ -54,7 +54,7 @@ jobs:
         run: echo "init"
       - run: echo "test"
 
-  build-artifact:
+  build-and-publish:
     needs: [check-source-code, test]
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +76,7 @@ jobs:
         run: |
           aws s3 sync --delete \
           ./dist \
-          s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }}
+          s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }}
       # TODO: remove .html extension name
       - name: Publish HTML files
         run: echo "Upload HTML files"

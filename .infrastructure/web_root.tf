@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "web_root_for_this_env" {
   bucket        = var.SUBDOMAIN_NAMES[var.ENV][0]
-  force_destroy = false
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "allow_cdn_read" {
@@ -35,12 +35,5 @@ resource "aws_s3_object" "mock_index_page" {
   bucket       = aws_s3_bucket.web_root_for_this_env.bucket
   key          = "index.html"
   content      = "<h1>Hello, world</h1>"
-  content_type = "text/html"
-}
-
-resource "aws_s3_object" "mock_error_page" {
-  bucket       = aws_s3_bucket.web_root_for_this_env.bucket
-  key          = "error.html"
-  content      = "<h1>Error</h1>"
   content_type = "text/html"
 }
