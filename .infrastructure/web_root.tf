@@ -1,10 +1,10 @@
-resource "aws_s3_bucket" "web_root_test" {
-  bucket        = "test.${var.DOMAIN_NAME}"
+resource "aws_s3_bucket" "web_root_for_this_env" {
+  bucket        = var.SUBDOMAIN_NAMES[var.ENV][0]
   force_destroy = false
 }
 
 resource "aws_s3_bucket_policy" "allow_cdn_read" {
-  bucket = aws_s3_bucket.web_root_test.id
+  bucket = aws_s3_bucket.web_root_for_this_env.id
   policy = data.aws_iam_policy_document.allow_cdn_read.json
 }
 
@@ -20,26 +20,26 @@ data "aws_iam_policy_document" "allow_cdn_read" {
     actions = ["s3:GetObject",]
 
     resources = [
-      "${aws_s3_bucket.web_root_test.arn}/*",
+      "${aws_s3_bucket.web_root_for_this_env.arn}/*",
     ]
 
     condition {
       test     = "StringEquals"
-      values   = [aws_cloudfront_distribution.this_environment.arn]
+      values   = [aws_cloudfront_distribution.this_env.arn]
       variable = "AWS:SourceArn"
     }
   }
 }
 
 resource "aws_s3_object" "mock_index_page" {
-  bucket       = aws_s3_bucket.web_root_test.bucket
+  bucket       = aws_s3_bucket.web_root_for_this_env.bucket
   key          = "index.html"
   content      = "<h1>Hello, world</h1>"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "mock_error_page" {
-  bucket       = aws_s3_bucket.web_root_test.bucket
+  bucket       = aws_s3_bucket.web_root_for_this_env.bucket
   key          = "error.html"
   content      = "<h1>Error</h1>"
   content_type = "text/html"

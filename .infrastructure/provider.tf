@@ -12,10 +12,10 @@ terraform {
 }
 
 provider "aws" {
-  region = var.REGION
+  region = var.AWS_DEFAULT_REGION
 }
 
 provider "aws" {
-  alias = "virginia"
+  alias  = "virginia"
   region = "us-east-1"
 }

@@ -3,15 +3,18 @@ name: Deploy
 on:
   workflow_call:
     inputs:
-      subdomain:
+      webRootBucketName:
+        required: true
+        type: string
+      distributionId:
         required: true
         type: string
 
 env:
-  # These env variables should match the values in the .infrastructure/terraform.tfvars
+  # These env variables should match the values in the .infrastructure/terraform.tfvars.
   ARTIFACTORY_NAME: "nathanwang.link-ui-artifactory"
   REGION: "ap-southeast-2"
-  # These env variables are for GH actions only
+  # These env variables should match AWS resources.
   AWS_ACCOUNT_ID: "052859230833"
 
 permissions:
@@ -30,12 +33,15 @@ jobs:
       - name: Copy the artifact to the web root
         run: |
           aws s3 sync --delete \
-          s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }} \
-          s3://${{ inputs.subdomain }}
+            s3://${{ env.ARTIFACTORY_NAME }}/${{ github.sha }} \
+            s3://${{ inputs.webRootBucketName }}
 
   invalidate-cdn-cache:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       # TODO
-      - run: echo "Invalidate CDN cache"
+      - run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ inputs.distributionId }} \
+            --paths "/*"

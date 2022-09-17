@@ -13,4 +13,5 @@ jobs:
     needs: build
     uses: ./.github/workflows/deploy.yaml
     with:
-      subdomain: "test.nathanwang.link"
+      webRootBucketName: "test.nathanwang.link"
+      distributionId: "E2N4KG8FYSCYZE"

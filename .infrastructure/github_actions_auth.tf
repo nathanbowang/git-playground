@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "github_actions" {
     condition {
       test = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values = ["repo:${var.GITHUB_WORKSPACE_NAME}/${var.GITHUB_REPO_NAME}:*"]
+      values = ["repo:${var.GITHUB_ACCOUNT_NAME}/${var.GITHUB_REPO_NAME}:*"]
     }
 
     actions = [
