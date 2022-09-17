@@ -31,12 +31,6 @@ variable "SUBDOMAIN_NAMES" {
   }
 }
 
-variable "GITHUB_REPO_NAME" {
-  type        = string
-  description = "my-ui"
-  default     = "git-playground"
-}
-
 variable "AWS_DEFAULT_REGION" {
   type    = string
   default = "ap-southeast-2"
