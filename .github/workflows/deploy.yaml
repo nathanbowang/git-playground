@@ -33,9 +33,12 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: Copy the artifact to the web root
         run: |
-          aws s3 sync --delete --metadata '{"a":"a"}' \
+          aws s3 sync --delete \
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
+          aws s3 put-bucket-tagging \
+            --bucket s3://${{ env.ARTIFACTORY_BUCKET_NAME }} \
+            --tagging 'TagSet=[{"artifact-git-commit-hash"="123"}]'
 
   invalidate-cdn-cache:
     needs: deploy
