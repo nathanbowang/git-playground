@@ -5,7 +5,7 @@ variable "ENV" {
 
 variable "ARTIFACTORY_BUCKET_NAME" {
   type        = string
-  description = "E.g., abc-ui-artifactory or abc-identity-microservice-artifactory. "
+  description = "E.g., abc-artifactory or abc-ui-artifactory. "
 }
 
 variable "ROOT_DOMAIN_NAME" {
@@ -22,9 +22,9 @@ variable "SUBDOMAIN_NAMES" {
         prod : ["www.abc.com", "abc.com"],
       }
       The keys should be the env options.
-      The first element in the list will be:
+      The first element in the list will be included in:
         * the name of the web root S3 bucket, and
-        * the prefix of the name of the logs S3 bucket.
+        * the name of the logs S3 bucket.
     EOT
 }
 

@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "web_root_for_this_env" {
-  bucket        = var.SUBDOMAIN_NAMES[var.ENV][0]
+  bucket        = "${var.SUBDOMAIN_NAMES[var.ENV][0]}-web-root"
   force_destroy = true
+  # TODO: Versioning
 }
 
 resource "aws_s3_bucket_policy" "allow_cdn_read" {

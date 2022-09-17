@@ -6,7 +6,7 @@ on:
 
 env:
   # These env variables should match the values in the .infrastructure/terraform.tfvars.
-  ARTIFACTORY_BUCKET_NAME: "nathanwang.link-ui-artifactory"
+  ARTIFACTORY_BUCKET_NAME: "nathanwang.link-artifactory"
   AWS_DEFAULT_REGION: "ap-southeast-2"
   # These env variables should match AWS resources.
   AWS_ACCOUNT_ID: "052859230833"
