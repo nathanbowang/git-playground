@@ -1,3 +1,20 @@
+terraform {
+  required_version = ">= 1.2.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+
+  # TODO: s3 state
+}
+
+provider "aws" {
+  region = var.AWS_DEFAULT_REGION
+}
+
 resource "aws_iam_openid_connect_provider" "auth_server" {
   url             = "https://token.actions.githubusercontent.com"
   client_id_list  = ["sts.amazonaws.com"]

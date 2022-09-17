@@ -42,7 +42,6 @@ resource "aws_cloudfront_distribution" "this_env" {
   logging_config {
     include_cookies = true
     bucket          = aws_s3_bucket.logs.bucket_domain_name
-    prefix          = var.LOGS_PREFIX[var.ENV]
   }
 }
 
@@ -69,9 +68,4 @@ resource "aws_route53_record" "this_env" {
     zone_id                = aws_cloudfront_distribution.this_env.hosted_zone_id
     evaluate_target_health = true
   }
-}
-
-resource "aws_s3_bucket" "logs" {
-  bucket        = var.LOGS_BUCKET_NAME
-  force_destroy = true
 }
