@@ -22,8 +22,8 @@ resource "aws_iam_openid_connect_provider" "auth_server" {
 }
 
 resource "aws_iam_role" "github_actions" {
-  name = "GitHubActionsRole"
-  assume_role_policy = data.aws_iam_policy_document.github_actions.json
+  name                = "GitHubActionsRole"
+  assume_role_policy  = data.aws_iam_policy_document.github_actions.json
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
     "arn:aws:iam::aws:policy/CloudFrontFullAccess",
@@ -35,20 +35,20 @@ data "aws_iam_policy_document" "github_actions" {
     effect = "Allow"
 
     principals {
-      type = "Federated"
+      type        = "Federated"
       identifiers = [aws_iam_openid_connect_provider.auth_server.arn]
     }
 
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
-      values = ["sts.amazonaws.com"]
+      values   = ["sts.amazonaws.com"]
     }
 
     condition {
-      test = "StringLike"
+      test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values = ["repo:${var.GITHUB_ACCOUNT_NAME}/${var.GITHUB_REPO_NAME}:*"]
+      values   = ["repo:${var.GITHUB_ACCOUNT_NAME}/${var.GITHUB_REPO_NAME}:*"]
     }
 
     actions = [

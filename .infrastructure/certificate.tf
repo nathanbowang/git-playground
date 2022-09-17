@@ -1,8 +1,8 @@
 resource "aws_acm_certificate" "this_env" {
-  domain_name       = var.SUBDOMAIN_NAMES[var.ENV][0]
+  domain_name               = var.SUBDOMAIN_NAMES[var.ENV][0]
   subject_alternative_names = var.SUBDOMAIN_NAMES[var.ENV]
-  validation_method = "DNS"
-  provider = aws.virginia
+  validation_method         = "DNS"
+  provider                  = aws.virginia
 
   lifecycle {
     create_before_destroy = true
@@ -30,6 +30,6 @@ resource "aws_route53_record" "validation_records" {
 resource "aws_acm_certificate_validation" "this_env" {
   certificate_arn         = aws_acm_certificate.this_env.arn
   validation_record_fqdns = [for record in aws_route53_record.validation_records : record.fqdn]
-  provider = aws.virginia
+  provider                = aws.virginia
 }
 

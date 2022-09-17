@@ -1,10 +1,10 @@
 variable "GITHUB_ACCOUNT_NAME" {
-  type = string
+  type        = string
   description = "natebowang"
 }
 
 variable "GITHUB_REPO_NAME" {
-  type = string
+  type        = string
   description = "my-ui-repo"
 }
 

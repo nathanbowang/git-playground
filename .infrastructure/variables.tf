@@ -9,7 +9,7 @@ variable "ARTIFACTORY_BUCKET_NAME" {
 }
 
 variable "ROOT_DOMAIN_NAME" {
-  type    = string
+  type        = string
   description = "E.g., abc.com."
 }
 
