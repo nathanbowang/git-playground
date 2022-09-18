@@ -43,8 +43,8 @@ jobs:
             '}' \
             > artifactTags.json
           aws resourcegroupstaggingapi tag-resources \
-            --resource-arn-list arn:aws:s3:::test.nathanwang.link-web-root \
-            --tags artifactTags.json
+            --resource-arn-list arn:aws:s3:::${{ inputs.firstSubdomainName }}-web-root \
+            --tags file://artifactTags.json
 
   invalidate-cdn-cache:
     needs: deploy
