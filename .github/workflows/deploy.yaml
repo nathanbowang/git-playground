@@ -38,6 +38,7 @@ jobs:
             s3://${{ inputs.firstSubdomainName }}-web-root
           # These tags need to be ignored in the provider.tf
           echo '{'\
+              "\"artifact-git-origin\":\"$( git remote get-url origin )\","\
               "\"artifact-git-commit-hash\":\"${{ github.sha }}\","\
               "\"artifact-updated-by\":\"${{ github.actor }}\","\
               "\"artifact-last-updated-utc-time\":\"$(date -u --rfc-3339=seconds)\""\

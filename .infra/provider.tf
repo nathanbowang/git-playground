@@ -1,5 +1,3 @@
-# This file should be identical to the ./shared/provider.tf
-
 data "external" "get_git_info" {
   program = [
     "bash", "-c", <<EOT
@@ -21,6 +19,7 @@ locals {
     data.external.get_git_info.result
   )
   ignoreTagsKeys = [
+    "artifact-git-origin",
     "artifact-git-commit-hash",
     "artifact-updated-by",
     "artifact-last-updated-utc-time"
