@@ -1,3 +1,5 @@
+# All */provider.tf should be identical in this repo
+
 data "external" "get_git_info" {
   program = [
     "bash", "-c", <<EOT
