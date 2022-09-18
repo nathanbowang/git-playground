@@ -16,4 +16,4 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     with:
       firstSubdomainName: "www.nathanwang.link"
-      distributionId: "E2N4KG8FYSCYZE"
+      distributionId: "E25NZA7AE4O6A6"
