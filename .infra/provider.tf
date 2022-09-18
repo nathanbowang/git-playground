@@ -4,7 +4,7 @@ data "external" "get_git_info" {
       echo '{'\
         "\"infra-git-origin\":\"$(git remote get-url origin)\","\
         "\"infra-git-commit-hash\":\"$(git rev-parse HEAD)\","\
-        "\"infra-provisioned-from-path\":\"$(git rev-parse --show-prefix)\","\
+        "\"infra-path\":\"$(git rev-parse --show-prefix)\","\
         "\"infra-updated-by\":\"$(git config --get user.name)\""\
       '}'
     EOT
