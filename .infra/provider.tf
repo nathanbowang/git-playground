@@ -18,12 +18,6 @@ locals {
     },
     data.external.get_git_info.result
   )
-  ignoreTagsKeys = [
-    "artifact-git-origin",
-    "artifact-git-commit-hash",
-    "artifact-updated-by",
-    "artifact-last-updated-utc-time"
-  ]
 }
 
 terraform {
@@ -42,12 +36,12 @@ terraform {
 provider "aws" {
   region = var.AWS_DEFAULT_REGION
   default_tags { tags = local.defaultTags }
-  ignore_tags { keys = local.ignoreTagsKeys }
+  ignore_tags { key_prefixes = ["artifact"] }
 }
 
 provider "aws" {
   alias  = "virginia"
   region = "us-east-1"
   default_tags { tags = local.defaultTags }
-  ignore_tags { keys = local.ignoreTagsKeys }
+  ignore_tags { key_prefixes = ["artifact"] }
 }

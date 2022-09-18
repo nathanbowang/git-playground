@@ -36,7 +36,7 @@ jobs:
           aws s3 sync --delete \
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
-          # These tags need to be ignored in the provider.tf
+          # These tags must start with artifact. 
           echo '{'\
               "\"artifact-git-origin\":\"${{ github.repositoryUrl }}\","\
               "\"artifact-git-commit-hash\":\"${{ github.sha }}\","\
