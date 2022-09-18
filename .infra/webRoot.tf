@@ -30,10 +30,3 @@ data "aws_iam_policy_document" "allow_cdn_read" {
     }
   }
 }
-
-resource "aws_s3_object" "mock_index_page" {
-  bucket       = aws_s3_bucket.web_root_for_this_env.bucket
-  key          = "index.html"
-  content      = "<h1>Hello, world</h1>"
-  content_type = "text/html"
-}

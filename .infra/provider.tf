@@ -1,5 +1,3 @@
-# All */provider.tf should be identical in this repo
-
 data "external" "get_git_info" {
   program = [
     "bash", "-c", <<EOT
@@ -33,8 +31,6 @@ terraform {
       version = "~> 4.0"
     }
   }
-
-  # TODO: s3 state
 }
 
 provider "aws" {

@@ -1,5 +1,3 @@
-# All */provider.tf should be identical in this repo
-
 data "external" "get_git_info" {
   program = [
     "bash", "-c", <<EOT
@@ -35,13 +33,6 @@ terraform {
 
 provider "aws" {
   region = var.AWS_DEFAULT_REGION
-  default_tags { tags = local.defaultTags }
-  ignore_tags { key_prefixes = ["artifact"] }
-}
-
-provider "aws" {
-  alias  = "virginia"
-  region = "us-east-1"
   default_tags { tags = local.defaultTags }
   ignore_tags { key_prefixes = ["artifact"] }
 }
