@@ -31,8 +31,6 @@ terraform {
       version = "~> 4.0"
     }
   }
-
-  # TODO: s3 state
 }
 
 provider "aws" {
