@@ -36,10 +36,11 @@ jobs:
           aws s3 sync --delete \
             s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.sha }} \
             s3://${{ inputs.firstSubdomainName }}-web-root
+          # These tags need to be ignored in the provider.tf
           echo '{'\
               "\"artifact-git-commit-hash\":\"${{ github.sha }}\","\
               "\"artifact-updated-by\":\"${{ github.actor }}\","\
-              "\"artifact-last-updated-time\":\"$(date -u --rfc-3339=seconds)\""\
+              "\"artifact-last-updated-utc-time\":\"$(date -u --rfc-3339=seconds)\""\
             '}' \
             > artifactTags.json
           aws resourcegroupstaggingapi tag-resources \

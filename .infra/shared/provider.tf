@@ -16,11 +16,15 @@ data "external" "get_git_info" {
 locals {
   defaultTags = merge(
     {
-      "infra-last-updated-time": timestamp()
+      "infra-last-updated-utc-time": timestamp()
     },
     data.external.get_git_info.result
   )
-  ignoreTagsKeys = ["artifact-git-commit-hash"]
+  ignoreTagsKeys = [
+    "artifact-git-commit-hash",
+    "artifact-updated-by",
+    "artifact-last-updated-utc-time"
+  ]
 }
 
 terraform {
