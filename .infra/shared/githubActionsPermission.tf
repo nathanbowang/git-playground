@@ -10,6 +10,7 @@ resource "aws_iam_role" "github_actions" {
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
     "arn:aws:iam::aws:policy/CloudFrontFullAccess",
+    "arn:aws:iam::aws:policy/ResourceGroupsandTagEditorFullAccess",
   ]
 }
 
