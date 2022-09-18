@@ -1,5 +1,5 @@
 # These variables should match the env variables in the GitHub actions workflows
-# These variables should match variables in the shared folder
+# These variables should match variables in the bootstrap folder
 
 variable "ENV" {
   type        = string
