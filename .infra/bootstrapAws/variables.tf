@@ -4,13 +4,13 @@
 variable "ARTIFACTORY_BUCKET_NAME" {
   type        = string
   description = "This is a global artifactory for the AWS account. E.g., my-artifactory."
-  default     = "nathan-wang-artifactory"
+  default     = "global-artifactory"
 }
 
 variable "TERRAFORM_BACKEND_BUCKET_NAME" {
   type        = string
   description = "This is a global TF state store for the AWS account. E.g., my-terraform-backend."
-  default     = "nathan-wang-terraform-backend"
+  default     = "global-terraform-backend"
 }
 
 variable "AWS_DEFAULT_REGION" {
