@@ -1,3 +1,13 @@
+data "external" "get_github_account" {
+  program = [
+    "bash", "-c", <<EOT
+      echo '{'\
+        "\"github-account\":\"$(git remote get-url origin | grep -oP '(?<=:).*?(?=/)')\""\
+      '}'
+    EOT
+  ]
+}
+
 resource "aws_iam_openid_connect_provider" "github" {
   url             = "https://token.actions.githubusercontent.com"
   client_id_list  = ["sts.amazonaws.com"]
@@ -32,7 +42,7 @@ data "aws_iam_policy_document" "github_actions" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:*:*"]
+      values   = ["repo:${data.external.get_github_account.result.github-account}/*"]
     }
 
     actions = [
