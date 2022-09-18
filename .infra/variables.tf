@@ -35,3 +35,12 @@ variable "AWS_DEFAULT_REGION" {
   type    = string
   default = "ap-southeast-2"
 }
+
+variable "FORCE_DESTROY" {
+  type    = bool
+  description = <<EOT
+      If true, an S3 bucket could be destroyed with objects.
+      If false, an S3 bucket can only be destroyed if empty.
+    EOT
+  default = true
+}
