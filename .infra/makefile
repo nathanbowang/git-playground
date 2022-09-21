@@ -1,14 +1,17 @@
-# TODO
-make test
-terraform init -reconfigure \
-    -backend-config="bucket=global-terraform-backend" \
-    -backend-config="key=test.nathanwang.link" \
-    -backend-config="region=ap-southeast-2"
-terraform apply -var ENV="test"
+BUCKET_NAME := -backend-config="bucket=global-terraform-backend"
+TEST_STATE_KEY := -backend-config="key=test.nathanwang.link"
+PROD_STATE_KEY := -backend-config="key=www.nathanwang.link"
+REGION := -backend-config="region=ap-southeast-2"
 
-make prod
-terraform init -reconfigure \
-    -backend-config="bucket=global-terraform-backend" \
-    -backend-config="key=www.nathanwang.link" \
-    -backend-config="region=ap-southeast-2"
-terraform apply -var ENV="prod"
+TEST_BACKEND := $(BUCKET_NAME) $(TEST_STATE_KEY) $(REGION)
+PROD_BACKEND := $(BUCKET_NAME) $(PROD_STATE_KEY) $(REGION)
+
+.PHONY: test $(MAKECMDGOALS)
+
+test:
+	terraform init -reconfigure $(TEST_BACKEND)
+	terraform apply -var ENV="test"
+
+prod:
+	terraform init -reconfigure $(TEST_BACKEND)
+	terraform apply -var ENV="prod"
