@@ -13,5 +13,10 @@ test:
 	terraform apply -var ENV="test"
 
 prod:
-	terraform init -reconfigure $(TEST_BACKEND)
+	terraform init -reconfigure $(PROD_BACKEND)
 	terraform apply -var ENV="prod"
+
+destroy-prod:
+	@printf "$(RED_NORMAL)%s$(NO_COLOR)\n" "Prod env estroying!"
+	AWS_PROFILE=nathan terraform init -reconfigure $(PROD_BACKEND)
+	AWS_PROFILE=nathan terraform destroy -var ENV="prod"
