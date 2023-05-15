@@ -31,3 +31,5 @@ jobs:
           --user $(id -u):$(id -g) \
           --volume $(pwd):/data \
           devopsinfra/docker-terragrunt:latest format-hcl
+
+# Should work
