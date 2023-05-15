@@ -16,14 +16,15 @@ jobs:
       - name: Cache Docker image
         id: cache-docker-image
         uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
         with:
           path: /var/lib/docker
           key: docker
 
       - name: docker folder
         run: docker info
+
+      - name: docker folder
+        run: ls -al /var/lib/docker
 
       - name: Integration Test
         run: |
