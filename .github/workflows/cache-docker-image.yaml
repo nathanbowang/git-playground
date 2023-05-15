@@ -1,4 +1,4 @@
-name: Build
+name: Cache Docker image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  cache:
     runs-on: ubuntu-latest
     name: ${{ vars.JOB_NAME }}
     permissions:
