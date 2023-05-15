@@ -17,14 +17,19 @@ jobs:
         id: cache-docker-image
         uses: actions/cache@v3
         with:
-          path: /var/lib/docker
+          path: /tmp/ci/docker
           key: docker
 
-      - name: docker folder
-        run: docker info
+      - name: Update image cache if cache miss
+        if: steps.cache-docker-image.outputs.cache-hit != 'true'
+        run: |
+          docker pull devopsinfra/docker-terragrunt:latest && \
+          mkdir -p /tmp/ci/docker && \
+          docker image save devopsinfra/docker-terragrunt:latest --output /tmp/ci/docker/terragrunt.tar
 
-      - name: docker folder
-        run: ls -al /var/lib/docker
+      - name: Use image cache if cache hit
+        if: steps.cache-docker-image.outputs.cache-hit == 'true'
+        run: docker image load --input /tmp/ci/docker/terragrunt.tar
 
       - name: Integration Test
         run: |
