@@ -16,19 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - name: Cache Docker image
-#        id: cache-docker-image
-#        uses: actions/cache@v3
-#        env:
-#          cache-name: cache-node-modules
-#        with:
-#          path: node_modules
-#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#          restore-keys: |
-#            ${{ runner.os }}-build-${{ env.cache-name }}-
-#            ${{ runner.os }}-build-
-#            ${{ runner.os }}-
-#
+      - name: Cache Docker image
+        id: cache-docker-image
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: /var/lib/docker
+          key: docker
+
       - name: docker folder
         run: docker info
 
