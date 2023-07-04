@@ -41,6 +41,9 @@ jobs:
       - name: Exit with error
         run: exit 1
       - name: Init repo
+        if: always()
+        run: echo "init"
+      - name: Init repo
         run: echo "init"
       - name: Check format and linter
         run: echo "check"
@@ -58,8 +61,7 @@ jobs:
       - run: echo "test"
 
   build-and-publish:
-#    needs: [check-source-code, test]
-    needs: [test]
+    needs: [check-source-code, test]
     runs-on: ubuntu-latest
     steps:
       # TODO
