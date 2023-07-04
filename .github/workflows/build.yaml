@@ -44,8 +44,10 @@ jobs:
         if: always()
         run: echo "init"
       - name: Init repo
+        if: always()
         run: echo "init"
       - name: Check format and linter
+        if: always()
         run: echo "check"
 
   test:
