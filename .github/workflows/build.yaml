@@ -58,7 +58,8 @@ jobs:
       - run: echo "test"
 
   build-and-publish:
-    needs: [check-source-code, test]
+#    needs: [check-source-code, test]
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
       # TODO
