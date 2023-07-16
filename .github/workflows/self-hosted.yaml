@@ -9,4 +9,4 @@ jobs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: A
-        run: curl http://192.168.0.1/
+        run: terraform
