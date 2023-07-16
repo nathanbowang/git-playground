@@ -1,0 +1,12 @@
+name: Run on self-hosted runner
+
+on: [push]
+
+jobs:
+  hello-world:
+    runs-on: msg8
+    outputs:
+      isExist: ${{ steps.cache.outputs.cache-hit }}
+    steps:
+      - name: A
+      - run: echo "A"
