@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   hello-world:
-    runs-on: msg8
+    runs-on: [self-hosted, linux, x64]
     outputs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
