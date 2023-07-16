@@ -9,4 +9,4 @@ jobs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: A
-      - run: echo "A"
+        run: echo "A"
