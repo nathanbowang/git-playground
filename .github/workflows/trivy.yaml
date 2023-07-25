@@ -13,7 +13,7 @@ on:
         required: false
 
 jobs:
-  check-out:
+  scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -29,3 +29,6 @@ jobs:
           severity: CRITICAL,HIGH,MEDIUM
           skip-dirs: ${{ inputs.skip-scan-dirs }}
           skip-files: ${{ inputs.skip-scan-files }}
+
+      - name: A
+        run: echo ${{ inputs.skip-scan-dirs }}
