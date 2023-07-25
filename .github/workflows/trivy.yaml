@@ -1,15 +1,14 @@
 name: Scan
 
 on:
-  - workflow_call
-
-inputs:
-  skip-scan-dirs:
-    description: "Comma separated list of directories where traversal is skipped."
-    required: false
-  skip-scan-files:
-    description: "Comma separated list of files where traversal is skipped."
-    required: false
+  workflow_call:
+    inputs:
+      skip-scan-dirs:
+        description: "Comma separated list of directories where traversal is skipped."
+        required: false
+      skip-scan-files:
+        description: "Comma separated list of files where traversal is skipped."
+        required: false
 
 jobs:
   check-out:
