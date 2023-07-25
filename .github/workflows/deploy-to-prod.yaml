@@ -8,12 +8,16 @@ on:
 # TODO: use env in reusable workflow
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yaml
-
-  deploy-to-prod:
-    needs: build
-    uses: ./.github/workflows/deploy.yaml
+  scan:
+    uses: ./.github/workflows/trivy.yaml
     with:
-      firstSubdomainName: "www.nathanwang.link"
-      distributionId: "E25NZA7AE4O6A6"
+      skip-scan-files: ".infra"
+#  build:
+#    uses: ./.github/workflows/build.yaml
+#
+#  deploy-to-prod:
+#    needs: build
+#    uses: ./.github/workflows/deploy.yaml
+#    with:
+#      firstSubdomainName: "www.nathanwang.link"
+#      distributionId: "E25NZA7AE4O6A6"

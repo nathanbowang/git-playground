@@ -1,9 +1,12 @@
 name: Scan
 
-on:
-  push:
-    branches:
-      - main
+inputs:
+  skip-scan-dirs:
+    description: "Comma separated list of directories where traversal is skipped."
+    required: false
+  skip-scan-files:
+    description: "Comma separated list of files where traversal is skipped."
+    required: false
 
 jobs:
   check-out:
@@ -20,4 +23,5 @@ jobs:
           exit-code: 1
           ignore-unfixed: true
           severity: CRITICAL,HIGH,MEDIUM
-          skip-dirs: .infra/
+          skip-dirs: ${{ inputs.skip-scan-dirs }}
+          skip-files: ${{ inputs.skip-scan-files }}
