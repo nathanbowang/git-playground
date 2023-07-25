@@ -6,5 +6,5 @@ jobs:
   scan:
     uses: ./.github/workflows/trivy.yaml
     with:
-      skip-scan-dirs: ".infra,.infra2"
+      skip-scan-files: "network.tf,web_root.tf"
 
