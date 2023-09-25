@@ -13,6 +13,7 @@ jobs:
     with:
       skip-scan-files: ".infra"
   build:
+    secrets: inherit
     uses: ./.github/workflows/build.yaml
 #
 #  deploy-to-prod:
