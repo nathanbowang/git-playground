@@ -87,4 +87,4 @@ jobs:
       - name: Publish HTML files
         run: echo "Upload HTML files"
       - name: Ls
-        run: ls -al ./src
+        run: ls -al ./src/git-playground-submodule
