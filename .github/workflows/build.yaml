@@ -69,7 +69,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-          token: ${{ secrets.pat }}
+          token: ${{ secrets.PAT }}
       - name: Init repo
         run: echo "init repo"
       - name: Build a dist folder
