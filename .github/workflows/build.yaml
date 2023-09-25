@@ -67,6 +67,8 @@ jobs:
       # TODO
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - name: Init repo
         run: echo "init repo"
       - name: Build a dist folder
