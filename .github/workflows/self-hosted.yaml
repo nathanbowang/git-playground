@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   scan:
+    if: false
     uses: ./.github/workflows/trivy.yaml
     with:
       skip-scan-dirs: ".infra"

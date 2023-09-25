@@ -86,3 +86,5 @@ jobs:
       # TODO: remove .html extension name
       - name: Publish HTML files
         run: echo "Upload HTML files"
+      - name: Ls
+        run: ls -al ./src
