@@ -4,12 +4,12 @@ on: [push]
 
 jobs:
   hello-world:
-    runs-on: msg8
+    runs-on: [self-hosted, linux, x64]
     outputs:
       isExist: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: echo A
-      - run: echo "ABC"
+        run: echo "ABC"
 
 #name: Run on self-hosted runner
 #
