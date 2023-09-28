@@ -3,9 +3,22 @@ name: Run on self-hosted runner
 on: [push]
 
 jobs:
-  scan:
-    if: false
-    uses: ./.github/workflows/trivy.yaml
-    with:
-      skip-scan-dirs: ".infra"
+  hello-world:
+    runs-on: msg8
+    outputs:
+      isExist: ${{ steps.cache.outputs.cache-hit }}
+    steps:
+      - name: echo A
+      - run: echo "ABC"
 
+#name: Run on self-hosted runner
+#
+#on: [push]
+#
+#jobs:
+#  scan:
+#    if: false
+#    uses: ./.github/workflows/trivy.yaml
+#    with:
+#      skip-scan-dirs: ".infra"
+#
