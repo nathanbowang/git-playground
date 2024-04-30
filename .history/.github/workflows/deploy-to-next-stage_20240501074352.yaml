@@ -6,13 +6,10 @@ concurrency:
 
 on:
   # This workflow is triggered when the main pipeline completes:
-  #   workflow_run:
-  #     workflows: [Deploy to Prod] # the name of the triggering workflow
-  #     types: [completed] # Only trigger on completion
-  #     branches: [main] # Only trigger on main
-  push:
-    branches:
-      - main
+#   workflow_run:
+#     workflows: [Deploy to Prod] # the name of the triggering workflow
+#     types: [completed] # Only trigger on completion
+#     branches: [main] # Only trigger on main
 
 jobs:
   create-release:
