@@ -8,10 +8,10 @@ on:
 # TODO: use env in reusable workflow
 
 jobs:
-  # scan:
-  #   uses: ./.github/workflows/trivy.yaml
-  #   with:
-  #     skip-scan-files: ".infra"
+  scan:
+    uses: ./.github/workflows/trivy.yaml
+    with:
+      skip-scan-files: ".infra"
   build:
     secrets: inherit
     uses: ./.github/workflows/build.yaml
