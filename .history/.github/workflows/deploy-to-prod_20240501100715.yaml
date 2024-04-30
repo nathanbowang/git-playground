@@ -24,7 +24,6 @@ jobs:
   #      distributionId: "E25NZA7AE4O6A6"
 
   next:
-    needs: build
     runs-on: ubuntu-latest
     environment: next # Using next to force manual deployment protection (approve/reject)
     steps:
