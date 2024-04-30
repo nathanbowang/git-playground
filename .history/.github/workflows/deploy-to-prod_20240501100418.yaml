@@ -30,4 +30,4 @@ jobs:
     steps:
       - name: next
         id: next
-        run: echo "next stage"
+        run: echo "Deploy to the next stage"
