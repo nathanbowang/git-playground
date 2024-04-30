@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Check if an artifact of this version exist
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Init repo
         uses: ./.github/shared/init
       - name: Check format and linter
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Init repo
         uses: ./.github/shared/init
       - run: echo "test"
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Init repo
         uses: ./.github/shared/init
       - run: echo "build and upload to the artifactory"

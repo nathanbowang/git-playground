@@ -25,28 +25,28 @@ jobs:
       # TODO
       - name: Check if an artifact of this version exist
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
 
-  check-source-code:
-    needs: check-artifact-existence
-    if: needs.check-artifact-existence.outputs.isExist != 'true'
-    runs-on: ubuntu-latest
-    steps:
-      # TODO
-      - name: Checkout repo
-        uses: actions/checkout@v4
-      - name: Exit with error
-        continue-on-error: true
-        run: exit 1
-      - name: Init repo
-        run: echo "init"
-      - name: Init repo
-        run: echo "init"
-      - name: Check format and linter
-        run: echo "check"
+  # check-source-code:
+  #   needs: check-artifact-existence
+  #   if: needs.check-artifact-existence.outputs.isExist != 'true'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # TODO
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
+  #     - name: Exit with error
+  #       continue-on-error: true
+  #       run: exit 1
+  #     - name: Init repo
+  #       run: echo "init"
+  #     - name: Init repo
+  #       run: echo "init"
+  #     - name: Check format and linter
+  #       run: echo "check"
 
   test:
     needs: check-artifact-existence
@@ -55,7 +55,7 @@ jobs:
     steps:
       # TODO
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Init repo
         run: echo "init"
       - run: echo "test"
@@ -66,7 +66,7 @@ jobs:
     steps:
       # TODO
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           submodules: recursive
           token: ${{ secrets.PAT }}

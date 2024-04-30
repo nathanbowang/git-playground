@@ -25,7 +25,7 @@ jobs:
       # TODO
       - name: Check if an artifact of this version exist
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ./dist/
           key: ${{ github.sha }}
@@ -37,7 +37,7 @@ jobs:
     steps:
       # TODO
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Exit with error
         continue-on-error: true
         run: exit 1
@@ -55,7 +55,7 @@ jobs:
     steps:
       # TODO
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Init repo
         run: echo "init"
       - run: echo "test"
@@ -66,7 +66,7 @@ jobs:
     steps:
       # TODO
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           submodules: recursive
           token: ${{ secrets.PAT }}
@@ -74,18 +74,18 @@ jobs:
         run: echo "init repo"
       - name: Build a dist folder
         run: echo "build a dist folder"
-      #      - name: Configure AWS credentials
-      #        uses: aws-actions/configure-aws-credentials@v1
-      #        with:
-      #          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
-      #          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
+#          aws-region: ${{ env.AWS_DEFAULT_REGION }}
       # TODO: ignore error.html
       # TODO: exclude html files
-      #      - name: Publish the dist folder
-      #        run: |
-      #          aws s3 sync --delete \
-      #          ./dist \
-      #          s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.repository }}/${{ github.sha }}
+#      - name: Publish the dist folder
+#        run: |
+#          aws s3 sync --delete \
+#          ./dist \
+#          s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.repository }}/${{ github.sha }}
       # TODO: remove .html extension name
       - name: Publish HTML files
         run: echo "Upload HTML files"
