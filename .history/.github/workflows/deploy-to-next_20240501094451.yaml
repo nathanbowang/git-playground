@@ -15,7 +15,7 @@ jobs:
   next:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    environment: next # Using next to force manual deployment protection (approve/reject)
+    environment: next # Using preprod to force manual deployment protection (approve/reject)
     steps:
       - name: next
         id: next
