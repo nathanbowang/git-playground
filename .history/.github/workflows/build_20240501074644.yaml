@@ -30,23 +30,23 @@ jobs:
           path: ./dist/
           key: ${{ github.sha }}
 
-  check-source-code:
-    needs: check-artifact-existence
-    if: needs.check-artifact-existence.outputs.isExist != 'true'
-    runs-on: ubuntu-latest
-    steps:
-      # TODO
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      # - name: Exit with error
-      #   continue-on-error: true
-      #   run: exit 1
-      - name: Init repo
-        run: echo "init"
-      - name: Init repo
-        run: echo "init"
-      - name: Check format and linter
-        run: echo "check"
+  # check-source-code:
+  #   needs: check-artifact-existence
+  #   if: needs.check-artifact-existence.outputs.isExist != 'true'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # TODO
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
+  #     - name: Exit with error
+  #       continue-on-error: true
+  #       run: exit 1
+  #     - name: Init repo
+  #       run: echo "init"
+  #     - name: Init repo
+  #       run: echo "init"
+  #     - name: Check format and linter
+  #       run: echo "check"
 
   test:
     needs: check-artifact-existence

@@ -38,9 +38,9 @@ jobs:
       # TODO
       - name: Checkout repo
         uses: actions/checkout@v3
-      # - name: Exit with error
-      #   continue-on-error: true
-      #   run: exit 1
+      - name: Exit with error
+        continue-on-error: true
+        run: exit 1
       - name: Init repo
         run: echo "init"
       - name: Init repo
@@ -74,18 +74,18 @@ jobs:
         run: echo "init repo"
       - name: Build a dist folder
         run: echo "build a dist folder"
-      #      - name: Configure AWS credentials
-      #        uses: aws-actions/configure-aws-credentials@v1
-      #        with:
-      #          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
-      #          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GitHubActionsRole
+#          aws-region: ${{ env.AWS_DEFAULT_REGION }}
       # TODO: ignore error.html
       # TODO: exclude html files
-      #      - name: Publish the dist folder
-      #        run: |
-      #          aws s3 sync --delete \
-      #          ./dist \
-      #          s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.repository }}/${{ github.sha }}
+#      - name: Publish the dist folder
+#        run: |
+#          aws s3 sync --delete \
+#          ./dist \
+#          s3://${{ env.ARTIFACTORY_BUCKET_NAME }}/${{ github.repository }}/${{ github.sha }}
       # TODO: remove .html extension name
       - name: Publish HTML files
         run: echo "Upload HTML files"
