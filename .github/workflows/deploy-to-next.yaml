@@ -1,4 +1,4 @@
-name: .Deploy to next stage(shared)
+name: Deploy to next stage(shared)
 
 concurrency:
   group: create-release-${{ github.ref_name }} # ??
