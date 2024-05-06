@@ -1,5 +1,6 @@
 name: Deploy to Prod
 run-name: Deploy "${{ github.event.head_commit.message }}" to Test
+# run-name: Deploy "${{ github.event.head_commit.message }}" to Test
 
 on:
   push:
