@@ -1,5 +1,7 @@
 name: Deploy to Prod
-run-name: Deploy "${{ github.event.head_commit.message || github.event.pull_request.title }}" to Prod
+run-name: Deploy "${{ github.event.pull_request.title }}" to Prod
+
+# github.event.head_commit.message ||
 
 on:
   push:
