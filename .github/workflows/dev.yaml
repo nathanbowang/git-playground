@@ -1,4 +1,4 @@
-name: Deploy to Dev
+name: Dev
 run-name: "CI: ${{ github.event.head_commit.message || github.event.pull_request.title }}"
 
 on:
@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo
-        run: echo "hello"
+        run: echo "hello from dev"

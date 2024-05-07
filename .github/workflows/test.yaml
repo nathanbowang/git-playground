@@ -1,0 +1,20 @@
+name: Test # CD artifact to test
+run-name: Deploy "${{ github.event.workflow_run.head_commit.message }}" to Test
+
+concurrency:
+  group: test-${{ github.ref_name }}
+  cancel-in-progress: false
+
+on:
+  # This workflow is triggered when the Dev pipeline completes:
+  workflow_run:
+    workflows: [Dev]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo "hello from test"
