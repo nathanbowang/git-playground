@@ -1,5 +1,5 @@
 name: Test # CD artifact to test
-run-name: Deploy "${{ github.event.workflow_run.head_commit.message }}" to Test
+run-name: "Deploy to Test: ${{ github.event.workflow_run.head_commit.message }}"
 
 concurrency:
   group: test-${{ github.ref_name }}
