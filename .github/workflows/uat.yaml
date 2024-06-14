@@ -10,7 +10,6 @@ on:
 
 concurrency:
   group: uat-${{ github.ref_name }}
-  cancel-in-progress: false
 
 jobs:
   echo:
