@@ -1,5 +1,5 @@
 name: uat # CD artifact to uat
-run-name: "Deploy to uat: ${{ github.event.workflow_run.head_sha }}"
+run-name: "Deploy to uat: ${{ github.event.workflow_run.pull_requests }}"
 
 on:
   # This workflow is triggered when the test pipeline completes:
@@ -19,4 +19,4 @@ jobs:
       - name: echo
         run: echo "hello from uat"
 
-        #s3
+        #q4
