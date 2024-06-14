@@ -1,5 +1,5 @@
 name: uat # CD artifact to uat
-run-name: "Deploy to uat: ${{ github.event.workflow_run.pull_requests[0].title }}"
+run-name: "Deploy to uat: ${{ github.event.workflow_run.pull_requests[][title] }}"
 
 on:
   # This workflow is triggered when the test pipeline completes:
