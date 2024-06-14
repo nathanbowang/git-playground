@@ -1,4 +1,4 @@
-name: Dev
+name: dev
 run-name: "CI: ${{ github.event.pull_request.title || github.event.head_commit.message }}"
 
 on:
@@ -12,6 +12,7 @@ on:
 jobs:
   echo:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - name: echo
         run: echo "hello from dev"
