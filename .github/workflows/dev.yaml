@@ -20,4 +20,4 @@ jobs:
       - name: echo
         run: echo "hello from dev"
 
-        # z3
+        # w2
