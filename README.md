@@ -8,3 +8,5 @@ Terraform apply should not remove assets and the version tag
 Terraform destroy should be fail if the artifactory is not empty
 Terraform destroy should be fail if the web-root is not empty
 small update
+
+change to t4
