@@ -1,5 +1,5 @@
 name: test # CD artifact to test
-run-name: "Deploy to test: ${{ github.event.workflow_run.head_commit.message }}"
+run-name: "Deploy to test: ${{ github.event.workflow_run.head_sha }}"
 
 on:
   # This workflow is triggered when the dev pipeline completes:
