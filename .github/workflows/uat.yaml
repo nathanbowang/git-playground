@@ -17,6 +17,6 @@ jobs:
     environment: uat
     steps:
       - name: echo
-        run: echo "hello from uat"
+        run: echo ${{ github.event.workflow_run.pull_requests }}
 
         #q4
