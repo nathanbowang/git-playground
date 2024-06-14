@@ -1,0 +1,17 @@
+name: uat # CD artifact to uat
+run-name: "Deploy to uat: ${{ github.event.workflow_run.head_commit.message }}"
+
+on:
+  # This workflow is triggered when the test pipeline completes:
+  workflow_run:
+    workflows: [test]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
+      - name: echo
+        run: echo "hello from uat"

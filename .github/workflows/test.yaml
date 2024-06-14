@@ -1,16 +1,17 @@
-name: Test # CD artifact to test
-run-name: "Deploy to Test: ${{ github.event.workflow_run.head_commit.message }}"
+name: test # CD artifact to test
+run-name: "Deploy to test: ${{ github.event.workflow_run.head_commit.message }}"
 
 on:
-  # This workflow is triggered when the Dev pipeline completes:
+  # This workflow is triggered when the dev pipeline completes:
   workflow_run:
-    workflows: [Dev]
+    workflows: [dev]
     types: [completed]
     branches: [main]
 
 jobs:
   echo:
     runs-on: ubuntu-latest
+    environment: uat
     steps:
       - name: echo
         run: echo "hello from test"
