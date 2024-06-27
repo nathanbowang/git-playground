@@ -1,5 +1,5 @@
 name: Preprod and Prod # Create release and deploy release to preprod and prod
-run-name: "Deploy to prod: ${{ github.event.workflow_run.display_title }}"
+run-name: "Deploy to prod: ${{ inputs.release-tag }}"
 concurrency:
   group: preprod-and-prod-${{ github.ref_name }}
   cancel-in-progress: true
@@ -20,9 +20,7 @@ permissions:
 
 jobs:
   echo:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    environment: test
     steps:
       - name: echo
         run: echo "hello from test"
