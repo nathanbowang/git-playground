@@ -29,6 +29,7 @@ jobs:
             "GITHUB_REF_NAME": "'$GITHUB_REF_NAME'"
           }' | jq '.' > ./version.json
           echo $BUILD_DATE
+          echo '{"name": "Alice", "age": 28, "pets": ["cat", "dog", "fish"]}' | jq '.pets[] | select(. != "fish")'
   build:
     runs-on: ubuntu-latest
     steps:
