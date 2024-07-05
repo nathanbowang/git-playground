@@ -28,6 +28,7 @@ jobs:
             "SHA": "'$GITHUB_SHA'",
             "GITHUB_REF_NAME": "'$GITHUB_REF_NAME'"
           }' | jq '.' > ./version.json
+          echo $BUILD_DATE
   build:
     runs-on: ubuntu-latest
     steps:
