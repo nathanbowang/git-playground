@@ -18,7 +18,10 @@ jobs:
     environment: dev
     steps:
       - name: echo
-        run: echo "hello from dev"
+        run: |
+          ABC="abc"
+          echo ${{ github.run_number }}
+          echo $ABC
   build:
     runs-on: ubuntu-latest
     steps:
