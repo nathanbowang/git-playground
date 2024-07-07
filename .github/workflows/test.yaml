@@ -20,5 +20,9 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: artifacts
+          path: ./dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
+      - name: parse version number
+        run: |
+          jq -r '.VERSION' ./dist/version.json
