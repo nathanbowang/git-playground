@@ -9,10 +9,10 @@ on:
     branches: [main]
 
 jobs:
-  echo:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  download-artifact:
     runs-on: ubuntu-latest
-    environment: test
     steps:
-      - name: echo
-        run: echo "hello from test"
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-artifact
+          run-id: ${{ github.event.workflow_run.id }}
