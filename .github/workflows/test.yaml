@@ -8,6 +8,11 @@ on:
     types: [completed]
     branches: [main]
 
+permissions:
+  contents: write
+  packages: read
+  actions: read
+
 jobs:
   download-artifact:
     runs-on: ubuntu-latest
