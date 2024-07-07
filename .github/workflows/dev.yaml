@@ -21,6 +21,7 @@ jobs:
       - name: Apply Version Number
         run: |
           BUILD_DATE=$(date +%Y-%m-%dT%H:%MZ)
+          mkdir ./dist
           echo '{
             "VERSION": "'$VERSION'",
             "BUILD_DATE": "'$BUILD_DATE'",
