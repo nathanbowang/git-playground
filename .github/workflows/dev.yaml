@@ -21,7 +21,6 @@ jobs:
       - name: Apply Version Number
         run: |
           BUILD_DATE=$(date +%Y-%m-%dT%H:%MZ)
-          sed -i -e  "s/<version>/$VERSION/; s/<date>/$BUILD_DATE/" ./src/version.ts
           echo '{
             "VERSION": "'$VERSION'",
             "BUILD_DATE": "'$BUILD_DATE'",
