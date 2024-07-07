@@ -22,6 +22,8 @@ jobs:
       - name: echo
         run: |
           BUILD_DATE=$(date +%Y-%m-%dT%H:%MZ)
+          rm -f ./dist/version.json
+          touch ./dist/version.json
           echo '{
             "APP_VERSION": "'$VERSION'",
             "BUILD_DATE": "'$BUILD_DATE'",
