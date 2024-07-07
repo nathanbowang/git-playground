@@ -27,10 +27,9 @@ jobs:
             "BUILD_DATE": "'$BUILD_DATE'",
             "SHA": "'$GITHUB_SHA'",
             "GITHUB_REF_NAME": "'$GITHUB_REF_NAME'"
-          }' | jq '.' > ./version.json
+          }' | jq '.' > ./dist/version.json
           cat version.json
-          echo $BUILD_DATE
-          echo '{"name": "Alice", "age": 28, "pets": ["cat", "dog", "fish"]}' | jq '.pets[] | select(. != "fish")'
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -40,3 +39,11 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  upload-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifacts
+          path: ./dist
