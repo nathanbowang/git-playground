@@ -26,6 +26,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
       - name: parse
+        id: parse
         run: |
           jq -r '"version=" + .VERSION' ./dist/version.json
           jq -r '"version=" + .VERSION' ./dist/version.json >> "$GITHUB_OUTPUT"
