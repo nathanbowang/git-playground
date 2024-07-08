@@ -17,7 +17,7 @@ jobs:
   read-version-number:
     runs-on: ubuntu-latest
     outputs:
-      version-number: ${{ steps.parse.outputs.version-n }}
+      version-number: ${{ steps.parse.outputs.version-number }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -29,7 +29,7 @@ jobs:
         id: parse
         run: |
           jq -r '"version=" + .VERSION' ./dist/version.json
-          jq -r '"version-n=" + .VERSION' ./dist/version.json >> "$GITHUB_OUTPUT"
+          jq -r '"version-number=" + .VERSION' ./dist/version.json >> "$GITHUB_OUTPUT"
 
   a:
     runs-on: ubuntu-latest
