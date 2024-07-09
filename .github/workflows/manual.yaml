@@ -1,26 +1,56 @@
-name: Preprod and Prod # Create release and deploy release to preprod and prod
-run-name: "Deploy to prod: ${{ inputs.release-tag }}"
-concurrency:
-  group: preprod-and-prod-${{ github.ref_name }}
-  cancel-in-progress: true
+name: Generate Semantic Version
 
 on:
-  # this can trigger by being manually invoked:
   workflow_dispatch:
     inputs:
-      release-tag:
-        type: string
-        description: The tag of the release to deploy.
+      version:
+        description: "Major and minor version (e.g., v0.0)"
         required: true
 
-permissions:
-  contents: read
-  packages: read
-  actions: read
-
 jobs:
-  echo:
+  generate-version:
     runs-on: ubuntu-latest
+
+    env:
+      VERSION: ${{ github.event.inputs.version }}
+
     steps:
-      - name: echo
-        run: echo "hello from test"
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Generate Semantic Version
+        id: semver
+        run: |
+          #!/bin/bash
+          set -e
+
+          # Get the latest tag
+          LATEST_TAG=$(git describe --abbrev=0 --tags 2>/dev/null || echo "v0.0.0")
+          echo "Latest tag: $LATEST_TAG"
+
+          # Extract major, minor, and patch versions
+          INPUT_MAJOR=$(echo $VERSION | cut -d. -f1 | sed 's/v//')
+          INPUT_MINOR=$(echo $VERSION | cut -d. -f2)
+          LATEST_MAJOR=$(echo $LATEST_TAG | cut -d. -f1 | sed 's/v//')
+          LATEST_MINOR=$(echo $LATEST_TAG | cut -d. -f2)
+          LATEST_PATCH=$(echo $LATEST_TAG | cut -d. -f3)
+
+          # Compare versions
+          if [[ "$INPUT_MAJOR" -gt "$LATEST_MAJOR" ]] || [[ "$INPUT_MAJOR" -eq "$LATEST_MAJOR" && "$INPUT_MINOR" -gt "$LATEST_MINOR" ]]; then
+            NEW_VERSION="${VERSION}.0"
+          elif [[ "$INPUT_MAJOR" -eq "$LATEST_MAJOR" && "$INPUT_MINOR" -eq "$LATEST_MINOR" ]]; then
+            NEW_PATCH=$((LATEST_PATCH + 1))
+            NEW_VERSION="v${INPUT_MAJOR}.${INPUT_MINOR}.${NEW_PATCH}"
+          else
+            echo "Error: Input version (${VERSION}) is lower than the latest tag (${LATEST_TAG})"
+            exit 1
+          fi
+
+          echo "Generated new version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Use Generated Version
+        run: |
+          echo "The new version is: ${{ steps.semver.outputs.new_version }}"
