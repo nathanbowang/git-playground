@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -53,4 +53,4 @@ jobs:
 
       - name: Use Generated Version
         run: |
-          echo "The new version is: ${{ steps.semver.outputs.new_version }}"
+          echo "The new version is: ${{ steps.semver.outputs.version }}"
