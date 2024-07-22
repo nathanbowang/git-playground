@@ -28,7 +28,7 @@ jobs:
             "SHA": "'$GITHUB_SHA'",
             "GITHUB_REF_NAME": "'$GITHUB_REF_NAME'"
           }' | jq '.' > ./dist/version.json
-          echo "# Hello" >> $GITHUB_STEP_SUMMARY
+          echo ./dist/version.json >> $GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v4
         with:
           name: artifacts
