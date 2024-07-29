@@ -1,5 +1,5 @@
-name: dev
-run-name: "CI-${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
+name: PR
+run-name: "PR-${{ github.event.pull_request.number }}: ${{ github.event.pull_request.title }}"
 
 on:
   pull_request:

@@ -1,11 +1,8 @@
 name: dev
-run-name: "CI: ${{ github.event.pull_request.title || github.event.head_commit.message }}"
+run-name: "Dev: ${{ github.event.head_commit.message }}"
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 env:
@@ -29,6 +26,8 @@ jobs:
             "GITHUB_REF_NAME": "'$GITHUB_REF_NAME'"
           }' | jq '.' > ./dist/version.json
           cat ./dist/version.json >> $GITHUB_STEP_SUMMARY
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
       - uses: actions/upload-artifact@v4
         with:
           name: artifacts
