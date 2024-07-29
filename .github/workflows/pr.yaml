@@ -27,7 +27,6 @@ jobs:
           }' | jq '.' > ./dist/version.json
           cat ./dist/version.json >> $GITHUB_STEP_SUMMARY
           echo ${{ github.ref }}
-          echo ha
 
       - uses: actions/upload-artifact@v4
         with:
