@@ -28,7 +28,6 @@ def list_users(changed_files):
             f.write(f"users={json.dumps(user_dirs)}\n")
             f.write(f"isChanged={str(bool(user_dirs)).lower()}\n")
 
-
 def main():
     if len(sys.argv) != 3:
         print("Usage: python list-changed-users.py <before_commit> <after_commit>")

@@ -10,49 +10,6 @@ concurrency:
   group: dev-${{ github.ref_name }}
 
 jobs:
-  # find-user-dirs:
-  #   runs-on: ubuntu-latest
-  #   # outputs:
-  #   #   matrix: ${{ steps.set-matrix.outputs.matrix }}
-  #   steps:
-  #     - name: checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 2
-  #     - name: Find changed user directories
-  #       id: set-matrix
-  #       run: |
-  #         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-  #         # user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
-  #         # echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
-  #         echo $changed_files
-  #       shell: bash
-
-  # list-changed-users:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     users: ${{ steps.list.outputs.users }}
-  #   steps:
-  #     - name: list
-  #       id: list
-  #       run: |
-  #         # USERS='["src/users/alena", "src/users/nathan"]'
-  #         USERS='[]'
-  #         echo "users=${USERS}" >> $GITHUB_OUTPUT
-  #         echo "has_changes=false" >> $GITHUB_OUTPUT
-
-  # read-name:
-  #   needs: list-changed-users
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       user: ${{fromJson(needs.list-changed-users.outputs.users)}}
-  #   steps:
-  #     - name: checkout
-  #       uses: actions/checkout@v4
-  #     - name: Read name
-  #       run: |
-  #         cat ${{ matrix.user }}/name.txt
   list-changed-users:
     runs-on: ubuntu-latest
     outputs:
@@ -81,9 +38,11 @@ jobs:
     strategy:
       matrix:
         user: ${{fromJson(needs.list-changed-users.outputs.users)}}
+
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
       - name: Read name
         run: |
           cat ${{ matrix.user }}/name.txt
