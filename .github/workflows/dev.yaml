@@ -76,7 +76,7 @@ jobs:
 
   read-name:
     needs: list-changed-users
-    if: needs.list-changed-users.outputs.isChanged
+    if: ${{ needs.list-changed-users.outputs.isChanged == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
