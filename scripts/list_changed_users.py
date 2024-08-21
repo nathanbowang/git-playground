@@ -18,15 +18,10 @@ def list_users(changed_files):
             if len(parts) > 2:
                 user_dir = os.path.join(parts[0], parts[1], parts[2])
                 user_dirs.add(user_dir)
-    user_dirs = sorted(list(user_dirs))
-    print("Users:", user_dirs)
-    print("Is changed:", bool(user_dirs))
-    # Output to GitHub action
-    env_file = os.environ.get('GITHUB_OUTPUT')
-    if env_file:
-        with open(env_file, 'a') as f:
-            f.write(f"users={json.dumps(user_dirs)}\n")
-            f.write(f"isChanged={str(bool(user_dirs)).lower()}\n")
+    users = sorted(list(user_dirs))
+    print("Users:", users)
+    print("Is changed:", bool(users))
+    return users
 
 def main():
     if len(sys.argv) != 3:
@@ -37,7 +32,14 @@ def main():
     after_commit = sys.argv[2]
 
     changed_files = git_diff(before_commit, after_commit)
-    list_users(changed_files)
+    users = list_users(changed_files)
+
+    # Output to GitHub action
+    env_file = os.environ.get('GITHUB_OUTPUT')
+    if env_file:
+        with open(env_file, 'a') as f:
+            f.write(f"users={json.dumps(users)}\n")
+            f.write(f"isChanged={str(bool(users)).lower()}\n")
 
 if __name__ == "__main__":
     main()
