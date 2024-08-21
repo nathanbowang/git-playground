@@ -19,7 +19,7 @@ def main():
     after_commit = sys.argv[2]
 
     changed_files = git_diff(before_commit, after_commit)
-    print("changed_files": changed_files)
+    print("Changed files:", changed_files)
     list_users(changed_files)
 
 if __name__ == "__main__":
