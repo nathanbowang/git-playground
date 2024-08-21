@@ -23,9 +23,9 @@ jobs:
         id: set-matrix
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
+          # user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
           # echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
-          echo "matrix=$user_dirs"
+          echo $changed_files
         shell: bash
 
   # read-name:
