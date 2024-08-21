@@ -40,4 +40,4 @@ jobs:
         uses: actions/checkout@v4
       - name: Read name
         run: |
-          cat "${{ matrix.user }}/name.txt"
+          cat ${{ matrix.user }}/name.txt
