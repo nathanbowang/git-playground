@@ -1,5 +1,0 @@
-name: Deploy to next stage
-
-concurrency:
-  group: create-release-${{ github.ref_name }}
-  cancel-in-progress: true

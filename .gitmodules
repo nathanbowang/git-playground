@@ -1,3 +1,0 @@
-[submodule "src/git-playground-submodule"]
-	path = src/git-playground-submodule
-	url = git@github.com:natebowang/git-playground-submodule.git

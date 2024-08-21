@@ -1,6 +1,1 @@
-# Terraform
-.terraform
-.terragrunt-cache
-*.tfstate.backup
 .history
-
