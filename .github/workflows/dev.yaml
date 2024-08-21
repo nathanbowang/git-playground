@@ -28,26 +28,41 @@ jobs:
   #         echo $changed_files
   #       shell: bash
 
-  list-changed-users:
-    runs-on: ubuntu-latest
-    outputs:
-      users: ${{ steps.list.outputs.users }}
-    steps:
-      - name: list
-        id: list
-        run: |
-          USERS='[]'
-          echo "users=${USERS}" >> $GITHUB_OUTPUT
+  # list-changed-users:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     users: ${{ steps.list.outputs.users }}
+  #   steps:
+  #     - name: list
+  #       id: list
+  #       run: |
+  #         # USERS='["src/users/alena", "src/users/nathan"]'
+  #         USERS='[]'
+  #         echo "users=${USERS}" >> $GITHUB_OUTPUT
+  #         echo "has_changes=false" >> $GITHUB_OUTPUT
 
-  read-name:
-    needs: list-changed-users
+  # read-name:
+  #   needs: list-changed-users
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       user: ${{fromJson(needs.list-changed-users.outputs.users)}}
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v4
+  #     - name: Read name
+  #       run: |
+  #         cat ${{ matrix.user }}/name.txt
+  run-python-script:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        user: ${{fromJson(needs.list-changed-users.outputs.users)}}
+
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: Read name
-        run: |
-          cat ${{ matrix.user }}/name.txt
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run Python script
+        run: python scripts/list-changed-users.py
