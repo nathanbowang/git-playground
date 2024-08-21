@@ -10,38 +10,34 @@ concurrency:
   group: dev-${{ github.ref_name }}
 
 jobs:
-  find-user-dirs:
-    runs-on: ubuntu-latest
-    # outputs:
-    #   matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-      - name: Find changed user directories
-        id: set-matrix
-        run: |
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          # user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
-          # echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
-          echo $changed_files
-        shell: bash
-
-  # read-name:
-  #   needs: find-user-dirs
+  # find-user-dirs:
   #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
+  #   # outputs:
+  #   #   matrix: ${{ steps.set-matrix.outputs.matrix }}
   #   steps:
   #     - name: checkout
   #       uses: actions/checkout@v4
-  #     - name: Read name.txt
+  #       with:
+  #         fetch-depth: 2
+  #     - name: Find changed user directories
+  #       id: set-matrix
   #       run: |
-  #         if [ -f "${{ matrix.user_dir }}/name.txt" ]; then
-  #           echo "Content of ${{ matrix.user_dir }}/name.txt:"
-  #           cat "${{ matrix.user_dir }}/name.txt"
-  #         else
-  #           echo "name.txt not found in ${{ matrix.user_dir }}"
-  #         fi
+  #         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+  #         # user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
+  #         # echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
+  #         echo $changed_files
   #       shell: bash
+
+  read-name:
+    # needs: find-user-dirs
+    runs-on: ubuntu-latest
+    strategy:
+      # matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
+      matrix:
+        user: ["src/users/alena"]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Read name
+        run: |
+          cat "${{ matrix.user }}/name.txt"
