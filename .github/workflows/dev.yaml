@@ -12,8 +12,8 @@ concurrency:
 jobs:
   find-user-dirs:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    # outputs:
+    #   matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -24,23 +24,24 @@ jobs:
         run: |
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
           user_dirs=$(echo "$changed_files" | grep '^src/users/' | cut -d'/' -f1-3 | sort -u | jq -R -s -c '{user_dir: .}')
-          echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
+          # echo "matrix=$user_dirs" >> $GITHUB_OUTPUT
+          echo "matrix=$user_dirs"
         shell: bash
 
-  read-name:
-    needs: find-user-dirs
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: Read name.txt
-        run: |
-          if [ -f "${{ matrix.user_dir }}/name.txt" ]; then
-            echo "Content of ${{ matrix.user_dir }}/name.txt:"
-            cat "${{ matrix.user_dir }}/name.txt"
-          else
-            echo "name.txt not found in ${{ matrix.user_dir }}"
-          fi
-        shell: bash
+  # read-name:
+  #   needs: find-user-dirs
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v4
+  #     - name: Read name.txt
+  #       run: |
+  #         if [ -f "${{ matrix.user_dir }}/name.txt" ]; then
+  #           echo "Content of ${{ matrix.user_dir }}/name.txt:"
+  #           cat "${{ matrix.user_dir }}/name.txt"
+  #         else
+  #           echo "name.txt not found in ${{ matrix.user_dir }}"
+  #         fi
+  #       shell: bash
