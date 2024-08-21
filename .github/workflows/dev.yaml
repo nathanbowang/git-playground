@@ -76,5 +76,5 @@ jobs:
 
       - name: Use the output
         run: |
-          echo "Changed users: ${{ steps.list.outputs.users }}"
+          echo "Users: ${{ steps.list.outputs.users }}"
           echo "Is changed: ${{ steps.list.outputs.isChanged }}"

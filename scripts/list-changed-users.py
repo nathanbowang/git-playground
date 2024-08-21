@@ -25,7 +25,7 @@ def list_users(changed_files):
     env_file = os.environ.get('GITHUB_OUTPUT')
     if env_file:
         with open(env_file, 'a') as f:
-            f.write(f"users={' '.join(user_dirs)}\n")
+            f.write(f"users={json.dumps(user_dirs)}\n")
             f.write(f"isChanged={str(bool(user_dirs)).lower()}\n")
 
 
