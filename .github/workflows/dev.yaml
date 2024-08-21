@@ -34,7 +34,7 @@ jobs:
     strategy:
       # matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
       matrix:
-        user: ["src/users/alena"]
+        user: ["src/users/alena", "src/users/nathan"]
     steps:
       - name: checkout
         uses: actions/checkout@v4
