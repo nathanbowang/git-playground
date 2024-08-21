@@ -74,7 +74,16 @@ jobs:
         run: |
           python scripts/list-changed-users.py ${{ github.event.before }} ${{ github.sha }}
 
-      - name: Use the output
+  read-name:
+    needs: list-changed-users
+    if: needs.list-changed-users.outputs.isChanged
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        user: ${{fromJson(needs.list-changed-users.outputs.users)}}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Read name
         run: |
-          echo "Users: ${{ steps.list.outputs.users }}"
-          echo "Is changed: ${{ steps.list.outputs.isChanged }}"
+          cat ${{ matrix.user }}/name.txt
