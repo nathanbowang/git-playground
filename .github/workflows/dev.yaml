@@ -36,14 +36,13 @@ jobs:
       - name: list
         id: list
         run: |
-          USERS='["src/users/alena", "src/users/nathan"]'
+          USERS='[]'
           echo "users=${USERS}" >> $GITHUB_OUTPUT
 
   read-name:
     needs: list-changed-users
     runs-on: ubuntu-latest
     strategy:
-      # matrix: ${{fromJson(needs.find-user-dirs.outputs.matrix)}}
       matrix:
         user: ${{fromJson(needs.list-changed-users.outputs.users)}}
     steps:
