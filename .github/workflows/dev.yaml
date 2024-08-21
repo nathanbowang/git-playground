@@ -71,4 +71,10 @@ jobs:
 
       - name: List
         id: list
-        run: python scripts/list-changed-users.py ${{ github.event.before }} ${{ github.sha }}
+        run: |
+          python scripts/list-changed-users.py ${{ github.event.before }} ${{ github.sha }}
+
+      - name: Use the output
+        run: |
+          echo "Changed users: ${{ steps.list.outputs.users }}"
+          echo "Is changed: ${{ steps.list.outputs.isChanged }}"
