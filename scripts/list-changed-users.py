@@ -22,8 +22,8 @@ def list_users(changed_files):
     print("Users:", user_dirs)
     print("Is changed:", bool(user_dirs))
     # Output to GitHub action
-    print(f"::set-output name=users::{' '.join(user_dirs)}")
-    print(f"::set-output name=isChanged::{str(bool(user_dirs)).lower()}")
+    print(f"echo 'users={' '.join(user_dirs)}' >>$GITHUB_OUTPUT")
+    print(f"echo 'isChanged={str(bool(user_dirs)).lower()}' >>$GITHUB_OUTPUT")
 
 def main():
     if len(sys.argv) != 3:
