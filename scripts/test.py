@@ -6,11 +6,11 @@ class TestListUsers(unittest.TestCase):
     def test_list_users_with_changes(self):
         changed_files = [
             'scripts/list-changed-users.py',
-            'src/users/bing/name.txt',
+            'src/users/mike/name.txt',
             'src/users/nathan/name.txt',
             'src/users/nathan/eg/eee',
         ]
-        expected_users = ['src/users/bing', 'src/users/nathan']
+        expected_users = ['src/users/mike', 'src/users/nathan']
         actual_users = list_users(changed_files, "src/users/")
         self.assertEqual(actual_users, expected_users)
 
