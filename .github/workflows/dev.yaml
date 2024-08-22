@@ -29,7 +29,7 @@ jobs:
       - name: List
         id: list
         run: |
-          python scripts/list_changed_users.py ${{ github.event.before }} ${{ github.sha }}
+          python scripts/list_changed_users.py ${{ github.event.before }} ${{ github.sha }} "src/users/"
 
   read-name:
     needs: list-changed-users

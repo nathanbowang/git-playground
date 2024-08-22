@@ -11,7 +11,7 @@ class TestListUsers(unittest.TestCase):
             'src/users/nathan/eg/eee',
         ]
         expected_users = ['src/users/alena', 'src/users/nathan']
-        actual_users = list_users(changed_files)
+        actual_users = list_users(changed_files, "src/users/")
         self.assertEqual(actual_users, expected_users)
 
     def test_list_users_with_no_changes(self):
@@ -20,7 +20,7 @@ class TestListUsers(unittest.TestCase):
             'README.md',
         ]
         expected_users = []
-        actual_users = list_users(changed_files)
+        actual_users = list_users(changed_files, "src/users/")
         self.assertEqual(actual_users, expected_users)
 
 if __name__ == '__main__':

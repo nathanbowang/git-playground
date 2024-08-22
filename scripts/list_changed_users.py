@@ -10,10 +10,10 @@ def git_diff(before_commit, after_commit):
     print("Changed files:", changed_files)
     return changed_files
 
-def list_users(changed_files):
+def list_users(changed_files, users_dir):
     user_dirs = set()
     for file in changed_files:
-        if file.startswith("src/users/"):
+        if file.startswith(users_dir):
             parts = file.split(os.sep)
             if len(parts) > 2:
                 user_dir = os.path.join(parts[0], parts[1], parts[2])
@@ -24,15 +24,16 @@ def list_users(changed_files):
     return users
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python list-changed-users.py <before_commit> <after_commit>")
+    if len(sys.argv) != 4:
+        print("Usage: python list-changed-users.py <before_commit> <after_commit> <users_dir>")
         sys.exit(1)
 
     before_commit = sys.argv[1]
     after_commit = sys.argv[2]
+    users_dir = sys.argv[3]
 
     changed_files = git_diff(before_commit, after_commit)
-    users = list_users(changed_files)
+    users = list_users(changed_files, users_dir)
 
     # Output to GitHub action
     env_file = os.environ.get('GITHUB_OUTPUT')
