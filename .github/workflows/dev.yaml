@@ -5,44 +5,57 @@ on:
   push:
     branches:
       - main
+    paths:
+      - src/users/**
 
 concurrency:
   group: dev-${{ github.ref_name }}
 
 jobs:
-  list-changed-users:
-    runs-on: ubuntu-latest
-    outputs:
-      users: ${{ steps.list.outputs.users }}
-      isChanged: ${{ steps.list.outputs.isChanged }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - name: List
-        id: list
-        run: |
-          python scripts/list_changed_users.py ${{ github.event.before }} ${{ github.sha }} "src/users/"
-
   read-name:
-    needs: list-changed-users
-    if: ${{ needs.list-changed-users.outputs.isChanged == 'true' }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        user: ${{fromJson(needs.list-changed-users.outputs.users)}}
-
     steps:
       - name: checkout
         uses: actions/checkout@v4
 
       - name: Read name
         run: |
-          cat ${{ matrix.user }}/name.txt
+          ls
+          # cat ${{ matrix.user }}/name.txt
+
+  # list-changed-users:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     users: ${{ steps.list.outputs.users }}
+  #     isChanged: ${{ steps.list.outputs.isChanged }}
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.10"
+
+  #     - name: List
+  #       id: list
+  #       run: |
+  #         python scripts/list_changed_users.py ${{ github.event.before }} ${{ github.sha }} "src/users/"
+
+  # read-name:
+  #   needs: list-changed-users
+  #   if: ${{ needs.list-changed-users.outputs.isChanged == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       user: ${{fromJson(needs.list-changed-users.outputs.users)}}
+
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: Read name
+  #       run: |
+  #         cat ${{ matrix.user }}/name.txt
