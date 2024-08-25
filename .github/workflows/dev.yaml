@@ -22,13 +22,13 @@ jobs:
         id: changes
         with:
           filters: |
-            src:
-              - 'src/users/**'
+            user:
+              - added|modified: '/src/users/*.txt'
 
-      - if: steps.changes.outputs.src == 'true'
+      - if: steps.changes.outputs.user == 'true'
         run: |
           ls
-          # cat ${{ matrix.user }}/name.txt
+          cat ${{ steps.filter.outputs.user_files }}
 
   # read-name:
   #   runs-on: ubuntu-latest
