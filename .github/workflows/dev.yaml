@@ -5,23 +5,38 @@ on:
   push:
     branches:
       - main
-    paths:
-      - src/users/**
+    # paths:
+    #   - src/users/**
 
 concurrency:
   group: dev-${{ github.ref_name }}
 
 jobs:
-  read-name:
+  test-path-filter:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            src:
+              - 'src/users/**'
 
-      - name: Read name
+      - if: steps.changes.outputs.src == 'true'
         run: |
           ls
           # cat ${{ matrix.user }}/name.txt
+
+  # read-name:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: Read name
+  #       run: |
+  #         ls
+  #         # cat ${{ matrix.user }}/name.txt
 
   # list-changed-users:
   #   runs-on: ubuntu-latest
