@@ -15,6 +15,9 @@ jobs:
   test-path-filter:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
       - uses: dorny/paths-filter@v3
         id: changes
         with:
