@@ -23,8 +23,7 @@ jobs:
         with:
           filters: |
             user:
-              # - added|modified: '/src/users/**/*.txt'
-              - added|modified: '/src/users/**'
+              - '/src/users/**'
 
       - if: steps.changes.outputs.user == 'true'
         run: |
