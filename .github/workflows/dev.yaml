@@ -22,13 +22,12 @@ jobs:
         id: changes
         with:
           filters: |
-            user:
-              - '/src/users/**'
+            src:
+              - 'src/**'
 
-      - if: steps.changes.outputs.user == 'true'
-        run: |
-          ls
-          cat ${{ steps.filter.outputs.user_files }}
+        # run only if some file in 'src' folder was changed
+      - if: steps.changes.outputs.src == 'true'
+        run: ls
 
   # read-name:
   #   runs-on: ubuntu-latest
