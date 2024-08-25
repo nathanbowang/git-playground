@@ -28,7 +28,7 @@ jobs:
       - if: steps.changes.outputs.user == 'true'
         run: |
           ls
-          cat ${{ steps.filter.outputs.user_files }}
+          cat ${{ steps.changes.outputs.user_files }}
 
   # read-name:
   #   runs-on: ubuntu-latest
