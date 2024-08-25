@@ -23,7 +23,7 @@ jobs:
         with:
           filters: |
             src:
-              - '/src/users/**'
+              - '/src/**'
 
       - if: steps.changes.outputs.src == 'true'
         run: |
