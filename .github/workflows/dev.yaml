@@ -32,7 +32,6 @@ jobs:
     strategy:
       matrix:
         user: ${{fromJson(needs.list-changed-users.outputs.users_files)}}
-    name: Read ${{ split(matrix.user, '/')[3] }}
     steps:
       - uses: actions/checkout@v4
 
