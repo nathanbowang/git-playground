@@ -18,11 +18,10 @@ jobs:
       users: ${{ steps.list.outputs.users }}
       users_files: ${{ steps.list.outputs.users_files }}
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - uses: dorny/paths-filter@v3
-        id: list
+      - id: list
+        uses: dorny/paths-filter@v3
         with:
           list-files: json
           filters: |
@@ -36,10 +35,8 @@ jobs:
     strategy:
       matrix:
         user: ${{fromJson(needs.list-changed-users.outputs.users_files)}}
-
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Read name
         run: |
