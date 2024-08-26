@@ -12,24 +12,39 @@ concurrency:
   group: dev-${{ github.ref_name }}
 
 jobs:
-  test-path-filter:
+  list-changed-users:
     runs-on: ubuntu-latest
+    outputs:
+      users: ${{ steps.list.outputs.users }}
+      users_files: ${{ steps.list.outputs.users_files }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v3
-        id: changes
+        id: list
         with:
           list-files: json
           filters: |
-            user:
+            users:
               - added|modified: 'src/users/**/*.txt'
 
-      - if: steps.changes.outputs.user == 'true'
+  read-name:
+    needs: list-changed-users
+    if: ${{ needs.list-changed-users.outputs.users == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        user: ${{fromJson(needs.list-changed-users.outputs.users_files)}}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Read name
         run: |
-          ls
-          echo ${{ steps.changes.outputs.user_files }}
+          echo ${{ matrix.user }}
+          cat ${{ matrix.user }}
 
   # read-name:
   #   runs-on: ubuntu-latest
