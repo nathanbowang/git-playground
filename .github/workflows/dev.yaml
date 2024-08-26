@@ -8,6 +8,9 @@ on:
 concurrency:
   group: dev-${{ github.ref_name }}
 
+env:
+  PATH_PATTERN: "src/users/!(nathan)/*.txt"
+
 jobs:
   list-changed-users:
     runs-on: ubuntu-latest
@@ -23,7 +26,7 @@ jobs:
           list-files: json
           filters: |
             users:
-              - added|modified: 'src/users/!(nathan)/*.txt'
+              - added|modified: $PATH_PATTERN
 
   read-name:
     needs: list-changed-users
