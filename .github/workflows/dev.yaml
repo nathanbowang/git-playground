@@ -24,6 +24,7 @@ jobs:
           filters: |
             users:
               - added|modified: 'src/users/**/*.txt'
+              - added|modified: '!src/users/nathan/*.txt'
 
   read-name:
     needs: list-changed-users
