@@ -23,8 +23,7 @@ jobs:
           list-files: json
           filters: |
             users:
-              - added|modified: 'src/users/**/*.txt'
-              - added|modified: '!src/users/nathan/*.txt'
+              - added|modified: 'src/users/!(nathan)/*.txt'
 
   read-name:
     needs: list-changed-users
