@@ -1,0 +1,14 @@
+name: "Ephemeral Cron Destroy"
+
+on:
+  schedule:
+    - cron: "0 8 * * 1-5" # 18:00 AEST, Monday to Friday
+  workflow_dispatch:
+
+jobs:
+  destroy-ephemerals:
+    runs-on: ubuntu-latest
+    environment: ephemeral
+    steps:
+      - name: "Echo"
+        run: echo "Skipping NPM dependencies"
