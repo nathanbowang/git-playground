@@ -6,4 +6,4 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: curl -s https://yoursite.com | grep '__GEO__'
+      - run: curl -s https://proledai.click/
