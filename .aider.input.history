@@ -1,0 +1,82 @@
+
+# 2024-07-14 10:02:24.366412
++exit
+
+# 2024-08-21 14:39:14.115751
++/add .github/workflows/dev.yaml
+
+# 2024-08-21 14:39:35.507200
++create a step read name.txt and cat the content
+
+# 2024-08-21 14:53:24.499676
++/exit
+
+# 2024-08-21 16:34:11.140615
++/add scripts/list-changed-users.py .github/workflows/dev.yaml
+
+# 2024-08-21 16:37:52.144211
++写list_users function把changed_files里的包含“src/users/”的文件夹找出来，比如，changed_files是['scripts/list-changed-users.py', 'src/users/alena/name.txt', 'src/users/nathan/name.txt']，处理后的array是['src/users/alena', 'src/users/nathan']。然后把这个array输出到github action output users: ${{ steps.list.outputs.users }}
+
+# 2024-08-21 17:56:12.955074
++/ls
+
+# 2024-08-21 17:59:12.110479
++请你新建一个scripts/test.py文件，使用unittest模块测试list_users方法
+
+# 2024-08-21 18:04:49.668038
++ModuleNotFoundError: No module named 'list_changed_users'
+
+# 2024-08-21 18:06:07.189195
++/add scripts/list-changed-users.py
+
+# 2024-08-21 18:22:15.864883
++/exit
+
+# 2024-08-23 09:49:57.535076
++/add scripts/list_changed_users.py
+
+# 2024-08-23 09:50:00.902308
++/add scripts/test.py
+
+# 2024-08-23 09:51:24.860417
++Pass "src/users/" as parameter to list_users, also update test.pu
+
+# 2024-08-23 09:51:30.937756
++yes
+
+# 2024-08-23 09:51:43.644418
++Pass "src/users/" as parameter to list_users, also update test.py
+
+# 2024-08-23 09:56:18.135437
++/drop scripts/test.py
+
+# 2024-08-23 09:56:23.654752
++/add .github/workflows/dev.yaml
+
+# 2024-08-23 09:56:44.390301
++pass "src/users/" as argument to list_changed_users.py
+
+# 2024-08-23 09:57:24.871053
++`list-changed-users`
+
+# 2024-08-23 09:57:51.052323
++/drop .github/workflows/dev.yaml
+
+# 2024-08-23 09:58:39.068006
++Pass "src/users/" to list_changed_users.py as sys.argv[3]
+
+# 2024-08-26 14:38:33.235163
++/add .github/workflows/dev.yaml
+
+# 2024-08-26 14:39:46.928852
++I need a run name for read-name step, if the matrix.user is /src/users/nathan/name.txt, I want the run name is nathan. 
+
+# 2024-08-26 14:40:55.558277
++I need a run name for read-name job, if the matrix.user is /src/users/nathan/
++name.txt, I want the run name is nathan.
+
+# 2024-08-26 17:01:53.623634
++q
+
+# 2024-08-26 17:01:58.463126
++/exit
